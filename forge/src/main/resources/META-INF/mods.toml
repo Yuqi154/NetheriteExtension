@@ -1,15 +1,16 @@
 modLoader = "javafml"
 loaderVersion = "[47,)"
 #issueTrackerURL = ""
-license = "Insert License Here"
+license = "MIT"
 
 [[mods]]
 modId = "netherite_ext"
 version = "${version}"
-displayName = "NetheriteExtension"
-authors = "Me!"
+displayName = "Netherite Extension"
+authors = "IAFEnvoy"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+The high version port of Netherite Plus Mod
+Add more netherite items into game.
 '''
 #logoFile = ""
 
@@ -23,13 +24,13 @@ side = "BOTH"
 [[dependencies.netherite_ext]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.20.1,)"
+versionRange = "[1.20.1,1.20.5)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.netherite_ext]]
 modId = "architectury"
 mandatory = true
-versionRange = "[9.2.14,)"
+versionRange = "[0,)"
 ordering = "AFTER"
 side = "BOTH"

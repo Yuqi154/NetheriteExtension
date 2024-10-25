@@ -3,9 +3,9 @@ package com.iafenvoy.netherite.mixin;
 import com.iafenvoy.netherite.NetheriteExtension;
 import com.iafenvoy.netherite.config.NetheriteExtensionConfig;
 import com.iafenvoy.netherite.network.LavaVisionUpdatePacket;
+import com.iafenvoy.netherite.network.PacketBufferUtils;
 import com.iafenvoy.netherite.screen.NetheriteAnvilScreenHandler;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.SharedConstants;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.PacketByteBuf;
@@ -28,9 +28,9 @@ public class ServerPlayNetworkHandlerMixin {
     @Inject(method = "<init>", at = @At("RETURN"))
     public void init(MinecraftServer server, ClientConnection connection, ServerPlayerEntity player, CallbackInfo info) {
         NetheriteExtension.CONNECTED_CLIENTS.add(player);
-        PacketByteBuf buf = PacketByteBufs.create();
+        PacketByteBuf buf = PacketBufferUtils.create();
         buf.writeDouble(NetheriteExtensionConfig.getInstance().graphics.lava_vision_distance);
-        ServerPlayNetworking.send(player, LavaVisionUpdatePacket.ID, buf);
+        NetworkManager.sendToPlayer(player, LavaVisionUpdatePacket.ID, buf);
     }
 
     @Inject(method = "disconnect", at = @At("RETURN"))

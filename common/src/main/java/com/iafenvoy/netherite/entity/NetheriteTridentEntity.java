@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 public class NetheriteTridentEntity extends TridentEntity {
     public NetheriteTridentEntity(EntityType<? extends TridentEntity> entityType, World world) {
         super(entityType, world);
-        this.tridentStack = new ItemStack(NetheriteExtItems.NETHERITE_TRIDENT);
+        this.tridentStack = new ItemStack(NetheriteExtItems.NETHERITE_TRIDENT.get());
     }
 
     public NetheriteTridentEntity(World world, LivingEntity owner, ItemStack stack) {

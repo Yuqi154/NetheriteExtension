@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=true": {
+      "model": "netherite_ext:block/netherite_beacon_powered"
+    },
+    "powered=false": {
+      "model": "netherite_ext:block/netherite_beacon"
+    }
+  }
+}

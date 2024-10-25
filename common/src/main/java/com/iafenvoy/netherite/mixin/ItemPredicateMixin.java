@@ -23,7 +23,7 @@ public class ItemPredicateMixin {
 
     @ModifyVariable(method = "test", at = @At("HEAD"), argsOnly = true)
     public ItemStack letNetheriteShearsCountAsShears(ItemStack stack) {
-        if (this.items != null && this.items.contains(Items.SHEARS) && stack.isOf(NetheriteExtItems.NETHERITE_SHEARS)) {
+        if (this.items != null && this.items.contains(Items.SHEARS) && stack.isOf(NetheriteExtItems.NETHERITE_SHEARS.get())) {
             ItemStack itemStack = new ItemStack(Items.SHEARS);
             itemStack.setCount(stack.getCount());
             itemStack.setNbt(stack.getOrCreateNbt());

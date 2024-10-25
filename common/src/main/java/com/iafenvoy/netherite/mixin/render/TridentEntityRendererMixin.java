@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class TridentEntityRendererMixin {
     @Inject(method = "getTexture(Lnet/minecraft/entity/projectile/TridentEntity;)Lnet/minecraft/util/Identifier;", at = @At(value = "HEAD"), cancellable = true)
     public void getTextureMixin(TridentEntity entity, CallbackInfoReturnable<Identifier> cir) {
-        if (entity.tridentStack.isOf(NetheriteExtItems.NETHERITE_TRIDENT))
+        if (entity.tridentStack.isOf(NetheriteExtItems.NETHERITE_TRIDENT.get()))
             cir.setReturnValue(new Identifier(NetheriteExtension.MOD_ID, "textures/entity/netherite_trident.png"));
     }
 }

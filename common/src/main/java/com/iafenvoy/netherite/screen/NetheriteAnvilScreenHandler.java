@@ -38,7 +38,7 @@ public class NetheriteAnvilScreenHandler extends ForgingScreenHandler {
     }
 
     public NetheriteAnvilScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context) {
-        super(NetheriteExtScreenHandlers.NETHERITE_ANVIL, syncId, inventory, context);
+        super(NetheriteExtScreenHandlers.NETHERITE_ANVIL.get(), syncId, inventory, context);
         this.addProperty(this.levelCost);
     }
 
@@ -62,7 +62,7 @@ public class NetheriteAnvilScreenHandler extends ForgingScreenHandler {
 
     @Override
     protected boolean canUse(BlockState state) {
-        return state.isOf(NetheriteExtBlocks.NETHERITE_ANVIL_BLOCK);
+        return state.isOf(NetheriteExtBlocks.NETHERITE_ANVIL_BLOCK.get());
     }
 
     public int getLevelCost() {

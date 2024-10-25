@@ -1,0 +1,6 @@
+{
+  "parent": "netherite_ext:item/netherite_bow",
+  "textures": {
+    "layer0": "netherite_ext:item/netherite_bow_pulling_2"
+  }
+}

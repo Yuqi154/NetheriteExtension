@@ -58,24 +58,24 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
 
     public static Block get(DyeColor dyeColor) {
         if (dyeColor == null)
-            return NetheriteExtBlocks.NETHERITE_SHULKER_BOX;
+            return NetheriteExtBlocks.NETHERITE_SHULKER_BOX.get();
         return switch (dyeColor) {
-            case WHITE -> NetheriteExtBlocks.NETHERITE_WHITE_SHULKER_BOX;
-            case ORANGE -> NetheriteExtBlocks.NETHERITE_ORANGE_SHULKER_BOX;
-            case MAGENTA -> NetheriteExtBlocks.NETHERITE_MAGENTA_SHULKER_BOX;
-            case LIGHT_BLUE -> NetheriteExtBlocks.NETHERITE_LIGHT_BLUE_SHULKER_BOX;
-            case YELLOW -> NetheriteExtBlocks.NETHERITE_YELLOW_SHULKER_BOX;
-            case LIME -> NetheriteExtBlocks.NETHERITE_LIME_SHULKER_BOX;
-            case PINK -> NetheriteExtBlocks.NETHERITE_PINK_SHULKER_BOX;
-            case GRAY -> NetheriteExtBlocks.NETHERITE_GRAY_SHULKER_BOX;
-            case LIGHT_GRAY -> NetheriteExtBlocks.NETHERITE_LIGHT_GRAY_SHULKER_BOX;
-            case CYAN -> NetheriteExtBlocks.NETHERITE_CYAN_SHULKER_BOX;
-            case PURPLE -> NetheriteExtBlocks.NETHERITE_PURPLE_SHULKER_BOX;
-            case BLUE -> NetheriteExtBlocks.NETHERITE_BLUE_SHULKER_BOX;
-            case BROWN -> NetheriteExtBlocks.NETHERITE_BROWN_SHULKER_BOX;
-            case GREEN -> NetheriteExtBlocks.NETHERITE_GREEN_SHULKER_BOX;
-            case RED -> NetheriteExtBlocks.NETHERITE_RED_SHULKER_BOX;
-            case BLACK -> NetheriteExtBlocks.NETHERITE_BLACK_SHULKER_BOX;
+            case WHITE -> NetheriteExtBlocks.NETHERITE_WHITE_SHULKER_BOX.get();
+            case ORANGE -> NetheriteExtBlocks.NETHERITE_ORANGE_SHULKER_BOX.get();
+            case MAGENTA -> NetheriteExtBlocks.NETHERITE_MAGENTA_SHULKER_BOX.get();
+            case LIGHT_BLUE -> NetheriteExtBlocks.NETHERITE_LIGHT_BLUE_SHULKER_BOX.get();
+            case YELLOW -> NetheriteExtBlocks.NETHERITE_YELLOW_SHULKER_BOX.get();
+            case LIME -> NetheriteExtBlocks.NETHERITE_LIME_SHULKER_BOX.get();
+            case PINK -> NetheriteExtBlocks.NETHERITE_PINK_SHULKER_BOX.get();
+            case GRAY -> NetheriteExtBlocks.NETHERITE_GRAY_SHULKER_BOX.get();
+            case LIGHT_GRAY -> NetheriteExtBlocks.NETHERITE_LIGHT_GRAY_SHULKER_BOX.get();
+            case CYAN -> NetheriteExtBlocks.NETHERITE_CYAN_SHULKER_BOX.get();
+            case PURPLE -> NetheriteExtBlocks.NETHERITE_PURPLE_SHULKER_BOX.get();
+            case BLUE -> NetheriteExtBlocks.NETHERITE_BLUE_SHULKER_BOX.get();
+            case BROWN -> NetheriteExtBlocks.NETHERITE_BROWN_SHULKER_BOX.get();
+            case GREEN -> NetheriteExtBlocks.NETHERITE_GREEN_SHULKER_BOX.get();
+            case RED -> NetheriteExtBlocks.NETHERITE_RED_SHULKER_BOX.get();
+            case BLACK -> NetheriteExtBlocks.NETHERITE_BLACK_SHULKER_BOX.get();
         };
     }
 
@@ -142,7 +142,7 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, NetheriteExtBlocks.NETHERITE_SHULKER_BOX_ENTITY, NetheriteShulkerBoxBlockEntity::tick);
+        return checkType(type, NetheriteExtBlocks.NETHERITE_SHULKER_BOX_ENTITY.get(), NetheriteShulkerBoxBlockEntity::tick);
     }
 
     public DyeColor getColor() {

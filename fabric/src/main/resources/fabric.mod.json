@@ -2,37 +2,34 @@
   "schemaVersion": 1,
   "id": "netherite_ext",
   "version": "${version}",
-  "name": "NetheriteExtension",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Netherite Extension",
+  "description": "The high version port of Netherite Plus Mod. Add more netherite items into game.",
   "authors": [
-    "Me!"
+    "IAFEnvoy"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/ArkTechMC/NetheriteExtension"
   },
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/netherite_ext/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.iafenvoy.netherite.fabric.ExampleModFabric"
+      "com.iafenvoy.netherite.fabric.NetheriteExtensionFabric"
     ],
     "client": [
-      "com.iafenvoy.netherite.fabric.client.ExampleModFabricClient"
+      "com.iafenvoy.netherite.fabric.client.NetheriteExtensionFabricClient"
     ]
   },
+  "accessWidener": "netherite_ext.accesswidener",
   "mixins": [
     "netherite_ext.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.16.2",
+    "fabricloader": "*",
     "minecraft": "~1.20.1",
     "java": ">=17",
-    "architectury": ">=9.2.14",
+    "architectury": "*",
     "fabric-api": "*"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }

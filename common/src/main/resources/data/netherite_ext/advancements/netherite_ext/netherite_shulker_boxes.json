@@ -1,0 +1,211 @@
+{
+  "parent": "netherite_ext:netherite_ext/root",
+  "display": {
+    "icon": {
+      "item": "netherite_ext:netherite_shulker_box"
+    },
+    "title": {
+      "translate": "advancements.netherite_ext.netherite_shulker_boxes.title"
+    },
+    "description": {
+      "translate": "advancements.netherite_ext.netherite_shulker_boxes.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "netherite_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_white_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_white_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_orange_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_orange_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_magenta_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_magenta_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_light_blue_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_light_blue_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_yellow_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_yellow_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_lime_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_lime_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_pink_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_pink_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_gray_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_gray_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_light_gray_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_light_gray_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_cyan_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_cyan_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_purple_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_purple_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_blue_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_blue_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_brown_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_brown_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_green_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_green_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_red_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_red_shulker_box"]
+          }
+        ]
+      }
+    },
+    "netherite_black_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["netherite_ext:netherite_black_shulker_box"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "netherite_shulker_box",
+      "netherite_white_shulker_box",
+      "netherite_orange_shulker_box",
+      "netherite_magenta_shulker_box",
+      "netherite_light_blue_shulker_box",
+      "netherite_yellow_shulker_box",
+      "netherite_lime_shulker_box",
+      "netherite_pink_shulker_box",
+      "netherite_gray_shulker_box",
+      "netherite_light_gray_shulker_box",
+      "netherite_cyan_shulker_box",
+      "netherite_purple_shulker_box",
+      "netherite_blue_shulker_box",
+      "netherite_brown_shulker_box",
+      "netherite_green_shulker_box",
+      "netherite_red_shulker_box",
+      "netherite_black_shulker_box"
+    ]
+  ]
+}

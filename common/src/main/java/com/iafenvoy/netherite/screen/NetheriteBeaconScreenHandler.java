@@ -41,7 +41,7 @@ public class NetheriteBeaconScreenHandler extends ScreenHandler {
     }
 
     public NetheriteBeaconScreenHandler(int syncId, Inventory inventory, PropertyDelegate propertyDelegate, ScreenHandlerContext context) {
-        super(NetheriteExtScreenHandlers.NETHERITE_BEACON, syncId);
+        super(NetheriteExtScreenHandlers.NETHERITE_BEACON.get(), syncId);
         checkDataCount(propertyDelegate, 3);
         this.propertyDelegate = propertyDelegate;
         this.context = context;
@@ -68,7 +68,7 @@ public class NetheriteBeaconScreenHandler extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(this.context, player, NetheriteExtBlocks.NETHERITE_BEACON);
+        return canUse(this.context, player, NetheriteExtBlocks.NETHERITE_BEACON.get());
     }
 
     @Override

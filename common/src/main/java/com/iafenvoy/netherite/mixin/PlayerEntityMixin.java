@@ -27,7 +27,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private void increaseTravelMotionStats(double dx, double dy, double dz, CallbackInfo ci) {
         boolean hasNetheriteElytra = false;
         for (ItemStack item : this.getArmorItems())
-            hasNetheriteElytra |= item.isOf(NetheriteExtItems.NETHERITE_ELYTRA);
+            hasNetheriteElytra |= item.isOf(NetheriteExtItems.NETHERITE_ELYTRA.get());
         if (!hasNetheriteElytra) return;
         this.increaseStat(NetheriteExtStats.FLY_NETHERITE_ELYTRA_ONE_CM, Math.round((float) Math.sqrt(dx * dx + dy * dy + dz * dz) * 100.0F));
     }

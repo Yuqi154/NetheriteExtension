@@ -5,10 +5,10 @@ import com.iafenvoy.netherite.NetheriteExtension;
 import com.iafenvoy.netherite.network.UpdateNetheriteBeaconC2SPacket;
 import com.iafenvoy.netherite.screen.NetheriteBeaconScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.architectury.networking.NetworkManager;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -240,7 +240,7 @@ public class NetheriteBeaconScreen extends HandledScreen<NetheriteBeaconScreenHa
                     Optional.ofNullable(NetheriteBeaconScreen.this.secondaryEffect),
                     Optional.ofNullable(NetheriteBeaconScreen.this.tertiaryEffect))
                     .write(buf);
-            ClientPlayNetworking.send(UpdateNetheriteBeaconC2SPacket.ID, buf);
+            NetworkManager.sendToServer(UpdateNetheriteBeaconC2SPacket.ID, buf);
             assert NetheriteBeaconScreen.this.client != null && NetheriteBeaconScreen.this.client.player != null;
             NetheriteBeaconScreen.this.client.player.closeHandledScreen();
         }

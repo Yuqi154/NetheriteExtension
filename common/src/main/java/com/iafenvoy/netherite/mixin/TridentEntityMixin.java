@@ -1,8 +1,8 @@
 package com.iafenvoy.netherite.mixin;
 
 import com.iafenvoy.netherite.NetheriteExtension;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import com.iafenvoy.netherite.network.PacketBufferUtils;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -27,10 +27,10 @@ public abstract class TridentEntityMixin extends Entity {
     @Inject(method = "createSpawnPacket", at = @At("HEAD"))
     public void sendTridentStackOnSpawn(CallbackInfoReturnable<Packet<?>> info) {
         if ((Object) this instanceof TridentEntity tridentEntity) {
-            PacketByteBuf passedData = PacketByteBufs.create();
+            PacketByteBuf passedData = PacketBufferUtils.create();
             passedData.writeInt(Registries.ITEM.getRawId(tridentEntity.tridentStack.getItem()));
             for (ServerPlayerEntity player : this.getWorld().getServer().getPlayerManager().getPlayerList())
-                ServerPlayNetworking.send(player, new Identifier(NetheriteExtension.MOD_ID, "netherite_trident"), passedData);
+                NetworkManager.sendToPlayer(player, new Identifier(NetheriteExtension.MOD_ID, "netherite_trident"), passedData);
         }
     }
 }

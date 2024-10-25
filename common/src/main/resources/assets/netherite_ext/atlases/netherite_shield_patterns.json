@@ -1,0 +1,12 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "netherite_ext:entity/netherite_shield_base"
+    },
+    {
+      "type": "single",
+      "resource": "netherite_ext:entity/netherite_shield_base_nopattern"
+    }
+  ]
+}

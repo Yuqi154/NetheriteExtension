@@ -41,7 +41,7 @@ public class NetheriteBeaconBlock extends BeaconBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, NetheriteExtBlocks.NETHERITE_BEACON_BLOCK_ENTITY, NetheriteBeaconBlockEntity::tick);
+        return checkType(type, NetheriteExtBlocks.NETHERITE_BEACON_BLOCK_ENTITY.get(), NetheriteBeaconBlockEntity::tick);
     }
 
     @Override

@@ -43,12 +43,12 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
     private float prevAnimationProgress;
 
     public NetheriteShulkerBoxBlockEntity(@Nullable DyeColor dyeColor, BlockPos blockPos, BlockState blockState) {
-        super(NetheriteExtBlocks.NETHERITE_SHULKER_BOX_ENTITY, blockPos, blockState);
+        super(NetheriteExtBlocks.NETHERITE_SHULKER_BOX_ENTITY.get(), blockPos, blockState);
         this.cachedColor = dyeColor;
     }
 
     public NetheriteShulkerBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(NetheriteExtBlocks.NETHERITE_SHULKER_BOX_ENTITY, blockPos, blockState);
+        super(NetheriteExtBlocks.NETHERITE_SHULKER_BOX_ENTITY.get(), blockPos, blockState);
         this.cachedColor = ShulkerBoxBlock.getColor(blockState.getBlock());
     }
 

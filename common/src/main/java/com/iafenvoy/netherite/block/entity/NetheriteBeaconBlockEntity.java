@@ -101,7 +101,7 @@ public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScre
     private ContainerLock lock = ContainerLock.EMPTY;
 
     public NetheriteBeaconBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(NetheriteExtBlocks.NETHERITE_BEACON_BLOCK_ENTITY, blockPos, blockState);
+        super(NetheriteExtBlocks.NETHERITE_BEACON_BLOCK_ENTITY.get(), blockPos, blockState);
     }
 
     @Nullable
@@ -250,7 +250,7 @@ public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScre
             for (PlayerEntity player : list) {
                 player.addStatusEffect(new StatusEffectInstance(this.primary, effectLength, primaryEffectLevel, true, true));
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, effectLength, 0, true, true));
-                player.addStatusEffect(new StatusEffectInstance(NetheriteExtStatusEffects.LAVA_VISION, effectLength, Math.min(this.netheriteLevel, 127), true, true));
+                player.addStatusEffect(new StatusEffectInstance(NetheriteExtStatusEffects.LAVA_VISION.get(), effectLength, Math.min(this.netheriteLevel, 127), true, true));
 
                 // regeneration case
                 if (this.beaconLevel >= 4 && this.primary != this.secondary && this.secondary != null)

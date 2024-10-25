@@ -35,7 +35,7 @@ public class NetheriteElytraFeatureRenderer<T extends LivingEntity, M extends En
     @Override
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l) {
         ItemStack itemStack = livingEntity.getEquippedStack(EquipmentSlot.CHEST);
-        if (itemStack.isOf(NetheriteExtItems.NETHERITE_ELYTRA)) {
+        if (itemStack.isOf(NetheriteExtItems.NETHERITE_ELYTRA.get())) {
             Identifier identifier4;
             if (livingEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
                 if (abstractClientPlayerEntity.canRenderElytraTexture() && abstractClientPlayerEntity.getElytraTexture() != null)

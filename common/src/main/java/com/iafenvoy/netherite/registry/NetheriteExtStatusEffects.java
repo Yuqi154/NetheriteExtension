@@ -1,19 +1,20 @@
 package com.iafenvoy.netherite.registry;
 
 import com.iafenvoy.netherite.NetheriteExtension;
+import dev.architectury.registry.registries.DeferredRegister;
+import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.registry.RegistryKeys;
+
+import java.util.function.Supplier;
 
 public class NetheriteExtStatusEffects {
-    public static final StatusEffect LAVA_VISION = register("lava_vision", new StatusEffect(StatusEffectCategory.BENEFICIAL, 16744207));
+    public static final DeferredRegister<StatusEffect> REGISTRY = DeferredRegister.create(NetheriteExtension.MOD_ID, RegistryKeys.STATUS_EFFECT);
 
-    private static StatusEffect register(String name, StatusEffect entry) {
-        return Registry.register(Registries.STATUS_EFFECT, new Identifier(NetheriteExtension.MOD_ID, name), entry);
-    }
+    public static final RegistrySupplier<StatusEffect> LAVA_VISION = register("lava_vision", () -> new StatusEffect(StatusEffectCategory.BENEFICIAL, 16744207));
 
-    public static void init() {
+    private static RegistrySupplier<StatusEffect> register(String name, Supplier<StatusEffect> entry) {
+        return REGISTRY.register(name, entry);
     }
 }
