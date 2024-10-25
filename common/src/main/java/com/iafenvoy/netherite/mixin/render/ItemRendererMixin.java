@@ -20,7 +20,7 @@ public abstract class ItemRendererMixin {
     @Final
     private ItemModels models;
 
-    @ModifyVariable(method = "getModel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/item/ItemModels;getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;", shift = At.Shift.BY, by = 2), index = 5)
+    @ModifyVariable(method = "getModel", at = @At(value = "STORE", target = "Lnet/minecraft/client/render/item/ItemModels;getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;", ordinal = 2))
     public BakedModel getHeldNetheriteTridentModel(BakedModel value, ItemStack stack) {
         if (stack.isOf(NetheriteExtItems.NETHERITE_TRIDENT.get()))
             return this.models.getModelManager().getModel(new ModelIdentifier(MOD_ID, "netherite_trident_in_hand", "inventory"));

@@ -10,7 +10,6 @@ import com.iafenvoy.netherite.registry.NetheriteExtBlocks;
 import com.iafenvoy.netherite.registry.NetheriteExtItems;
 import com.iafenvoy.netherite.registry.NetheriteExtModelPredicates;
 import com.iafenvoy.netherite.registry.NetheriteExtScreenHandlers;
-import dev.architectury.event.events.client.ClientLifecycleEvent;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
@@ -21,10 +20,12 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.ShieldEntityModel;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.util.Identifier;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
 public class NetheriteExtensionClient {
@@ -56,6 +57,10 @@ public class NetheriteExtensionClient {
         DynamicItemRenderer.RENDERERS.put(NetheriteExtItems.NETHERITE_SHIELD.get(), dynamicItemRenderer);
     }
 
+    public static void init() {
+        EntityModelLayerRegistry.register(NETHERITE_SHIELD_MODEL_LAYER, ShieldEntityModel::getTexturedModelData);
+    }
+
     public static void process() {
         NetworkManager.registerReceiver(NetworkManager.Side.S2C, LavaVisionUpdatePacket.ID, (buf, ctx) -> LAVA_VISION_DISTANCE = buf.readDouble());
         NetworkManager.registerReceiver(NetworkManager.Side.S2C, new Identifier(NetheriteExtension.MOD_ID, "lava_vision_update"), (buf, ctx) -> NetheriteExtensionClient.LAVA_VISION_DISTANCE = buf.getDouble(0));
@@ -67,8 +72,10 @@ public class NetheriteExtensionClient {
         NetheriteExtModelPredicates.registerItemsWithModelProvider();
         NetheriteExtScreenHandlers.initializeClient();
         RenderTypeRegistry.register(RenderLayer.getCutout(), NetheriteExtBlocks.NETHERITE_BEACON.get());
+    }
 
-        EntityModelLayerRegistry.register(NETHERITE_SHIELD_MODEL_LAYER, ShieldEntityModel::getTexturedModelData);
-        ClientLifecycleEvent.CLIENT_STARTED.register(NetheriteExtensionClient::registerBuiltinItemRenderers);
+    public static void registerModel(Consumer<ModelIdentifier> consumer) {
+        consumer.accept(new ModelIdentifier(NetheriteExtension.MOD_ID, "netherite_trident", "inventory"));
+        consumer.accept(new ModelIdentifier(NetheriteExtension.MOD_ID, "netherite_trident_in_hand", "inventory"));
     }
 }

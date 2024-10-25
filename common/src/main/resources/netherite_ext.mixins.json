@@ -17,10 +17,9 @@
     "ClientPlayNetworkHandlerAccessor",
     "ClientPlayNetworkHandlerMixin",
     "LivingEntityRendererMixin",
+    "MinecraftClientMixin",
     "render.BackgroundRendererMixin",
     "render.ItemRendererMixin",
-    "render.ModelLoaderMixin",
-    "render.TexturedRenderLayersMixin",
     "render.TridentEntityRendererMixin"
   ],
   "injectors": {

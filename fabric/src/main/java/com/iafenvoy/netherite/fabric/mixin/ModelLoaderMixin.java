@@ -1,6 +1,6 @@
-package com.iafenvoy.netherite.mixin.render;
+package com.iafenvoy.netherite.fabric.mixin;
 
-import com.iafenvoy.netherite.NetheriteExtension;
+import com.iafenvoy.netherite.NetheriteExtensionClient;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
@@ -21,9 +21,8 @@ public abstract class ModelLoaderMixin {
     @Shadow
     protected abstract void addModel(ModelIdentifier modelId);
 
-    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelLoader;addModel(Lnet/minecraft/client/util/ModelIdentifier;)V", ordinal = 3, shift = At.Shift.AFTER))
+    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Ljava/util/Map;values()Ljava/util/Collection;"))
     public void addNetheriteTrident(BlockColors blockColors, Profiler profiler, Map<Identifier, JsonUnbakedModel> modelResources, Map<Identifier, List<ModelLoader.SourceTrackedData>> blockStateResources, CallbackInfo ci) {
-        this.addModel(new ModelIdentifier(NetheriteExtension.MOD_ID, "netherite_trident", "inventory"));
-        this.addModel(new ModelIdentifier(NetheriteExtension.MOD_ID, "netherite_trident_in_hand", "inventory"));
+        NetheriteExtensionClient.registerModel(this::addModel);
     }
 }

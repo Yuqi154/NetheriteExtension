@@ -20,10 +20,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(BuiltinModelItemRenderer.class)
 public abstract class BuiltinModelItemRendererMixin {
-    @Final
-    @Shadow
-    private EntityModelLoader entityModelLoader;
-
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void fabric_onRender(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, CallbackInfo info) {
         DynamicItemRenderer renderer = DynamicItemRenderer.RENDERERS.get(stack.getItem());
@@ -31,10 +27,5 @@ public abstract class BuiltinModelItemRendererMixin {
             renderer.render(stack, mode, matrices, vertexConsumers, light, overlay);
             info.cancel();
         }
-    }
-
-    @Inject(method = "reload", at = @At("HEAD"))
-    private void setModelFabricShield(CallbackInfo ci) {
-        NetheritePlusBuiltinItemModelRenderer.loadShieldModel(this.entityModelLoader);
     }
 }

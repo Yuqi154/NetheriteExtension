@@ -50,8 +50,8 @@ public class NetheritePlusBuiltinItemModelRenderer {
         this.entityModelLoader = entityModelLoader;
     }
 
-    public static void loadShieldModel(EntityModelLoader entityModelLoader) {
-        modelNetheriteShield = new ShieldEntityModel(entityModelLoader.getModelPart(NetheriteExtensionClient.NETHERITE_SHIELD_MODEL_LAYER));
+    public void loadShieldModel() {
+        modelNetheriteShield = new ShieldEntityModel(this.entityModelLoader.getModelPart(NetheriteExtensionClient.NETHERITE_SHIELD_MODEL_LAYER));
     }
 
     public static void renderTrident(TridentEntityModel model, ItemStack stack, ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
@@ -74,11 +74,12 @@ public class NetheritePlusBuiltinItemModelRenderer {
         if (itemStack.isOf(NetheriteExtItems.NETHERITE_TRIDENT.get()))
             renderTrident(new TridentEntityModel(this.entityModelLoader.getModelPart(EntityModelLayers.TRIDENT)), itemStack, transformType, matrices, vertices, light, overlay);
         else if (itemStack.isOf(NetheriteExtItems.NETHERITE_SHIELD.get())) {
+            if (modelNetheriteShield == null) loadShieldModel();
             boolean bl = BlockItem.getBlockEntityNbt(itemStack) != null;
             matrices.push();
             matrices.scale(1.0F, -1.0F, -1.0F);
             SpriteIdentifier spriteIdentifier = bl ? NETHERITE_SHIELD_BASE : NETHERITE_SHIELD_BASE_NO_PATTERN;
-            VertexConsumer vertexConsumer = spriteIdentifier.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getDirectItemGlintConsumer(vertices, this.modelNetheriteShield.getLayer(spriteIdentifier.getAtlasId()), true, itemStack.hasGlint()));
+            VertexConsumer vertexConsumer = spriteIdentifier.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getDirectItemGlintConsumer(vertices, modelNetheriteShield.getLayer(spriteIdentifier.getAtlasId()), true, itemStack.hasGlint()));
             modelNetheriteShield.getHandle().render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
             if (bl) {
                 List<Pair<RegistryEntry<BannerPattern>, DyeColor>> list = BannerBlockEntity.getPatternsFromNbt(ShieldItem.getColor(itemStack), BannerBlockEntity.getPatternListNbt(itemStack));
@@ -89,10 +90,8 @@ public class NetheritePlusBuiltinItemModelRenderer {
 
             matrices.pop();
         } else if (itemStack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof NetheriteShulkerBoxBlock block) {
-            NetheriteShulkerBoxBlockEntity entity;
             DyeColor dyecolor = block.getColor();
-            if (dyecolor == null) entity = RENDER_NETHERITE_SHULKER_BOX;
-            else entity = RENDER_NETHERITE_SHULKER_BOX_DYED[dyecolor.getId()];
+            NetheriteShulkerBoxBlockEntity entity = dyecolor == null ? RENDER_NETHERITE_SHULKER_BOX : RENDER_NETHERITE_SHULKER_BOX_DYED[dyecolor.getId()];
             this.blockEntityRenderDispatcher.renderEntity(entity, matrices, vertices, light, overlay);
         }
     }

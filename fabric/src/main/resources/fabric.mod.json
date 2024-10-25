@@ -23,7 +23,8 @@
   },
   "accessWidener": "netherite_ext.accesswidener",
   "mixins": [
-    "netherite_ext.mixins.json"
+    "netherite_ext.mixins.json",
+    "netherite_ext-fabric.mixins.json"
   ],
   "depends": {
     "fabricloader": "*",
