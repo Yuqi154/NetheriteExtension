@@ -4,8 +4,8 @@ import com.iafenvoy.netherite.NetheriteExtension;
 import com.iafenvoy.netherite.NetheriteExtensionClient;
 import com.iafenvoy.netherite.block.NetheriteShulkerBoxBlock;
 import com.iafenvoy.netherite.block.entity.NetheriteShulkerBoxBlockEntity;
-import com.iafenvoy.netherite.registry.NetheriteExtBlocks;
-import com.iafenvoy.netherite.registry.NetheriteExtItems;
+import com.iafenvoy.netherite.registry.NetheriteBlocks;
+import com.iafenvoy.netherite.registry.NetheriteItems;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.entity.BannerBlockEntity;
 import net.minecraft.block.entity.BannerPattern;
@@ -39,8 +39,8 @@ import java.util.List;
 public class NetheritePlusBuiltinItemModelRenderer {
     private static final SpriteIdentifier NETHERITE_SHIELD_BASE = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, Identifier.of(NetheriteExtension.MOD_ID, "entity/netherite_shield_base"));
     private static final SpriteIdentifier NETHERITE_SHIELD_BASE_NO_PATTERN = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, Identifier.of(NetheriteExtension.MOD_ID, "entity/netherite_shield_base_nopattern"));
-    private static final NetheriteShulkerBoxBlockEntity RENDER_NETHERITE_SHULKER_BOX = new NetheriteShulkerBoxBlockEntity(BlockPos.ORIGIN, NetheriteExtBlocks.NETHERITE_SHULKER_BOX.get().getDefaultState());
-    private static final NetheriteShulkerBoxBlockEntity[] RENDER_NETHERITE_SHULKER_BOX_DYED = Arrays.stream(DyeColor.values()).sorted(Comparator.comparingInt(DyeColor::getId)).map(dyeColor -> new NetheriteShulkerBoxBlockEntity(dyeColor, BlockPos.ORIGIN, NetheriteExtBlocks.NETHERITE_SHULKER_BOX.get().getDefaultState())).toArray(NetheriteShulkerBoxBlockEntity[]::new);
+    private static final NetheriteShulkerBoxBlockEntity RENDER_NETHERITE_SHULKER_BOX = new NetheriteShulkerBoxBlockEntity(BlockPos.ORIGIN, NetheriteBlocks.NETHERITE_SHULKER_BOX.get().getDefaultState());
+    private static final NetheriteShulkerBoxBlockEntity[] RENDER_NETHERITE_SHULKER_BOX_DYED = Arrays.stream(DyeColor.values()).sorted(Comparator.comparingInt(DyeColor::getId)).map(dyeColor -> new NetheriteShulkerBoxBlockEntity(dyeColor, BlockPos.ORIGIN, NetheriteBlocks.NETHERITE_SHULKER_BOX.get().getDefaultState())).toArray(NetheriteShulkerBoxBlockEntity[]::new);
     private static ShieldEntityModel modelNetheriteShield;
     private final EntityModelLoader entityModelLoader;
     private final BlockEntityRenderDispatcher blockEntityRenderDispatcher;
@@ -71,9 +71,9 @@ public class NetheritePlusBuiltinItemModelRenderer {
     }
 
     public void render(ItemStack itemStack, ModelTransformationMode transformType, MatrixStack matrices, VertexConsumerProvider vertices, int light, int overlay) {
-        if (itemStack.isOf(NetheriteExtItems.NETHERITE_TRIDENT.get()))
+        if (itemStack.isOf(NetheriteItems.NETHERITE_TRIDENT.get()))
             renderTrident(new TridentEntityModel(this.entityModelLoader.getModelPart(EntityModelLayers.TRIDENT)), itemStack, transformType, matrices, vertices, light, overlay);
-        else if (itemStack.isOf(NetheriteExtItems.NETHERITE_SHIELD.get())) {
+        else if (itemStack.isOf(NetheriteItems.NETHERITE_SHIELD.get())) {
             if (modelNetheriteShield == null) loadShieldModel();
             boolean bl = BlockItem.getBlockEntityNbt(itemStack) != null;
             matrices.push();

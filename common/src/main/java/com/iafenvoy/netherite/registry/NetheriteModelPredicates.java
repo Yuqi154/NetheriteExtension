@@ -8,9 +8,9 @@ import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 
-import static com.iafenvoy.netherite.registry.NetheriteExtItems.*;
+import static com.iafenvoy.netherite.registry.NetheriteItems.*;
 
-public class NetheriteExtModelPredicates {
+public final class NetheriteModelPredicates {
     public static void registerItemsWithModelProvider() {
         ItemPropertiesRegistry.register(NETHERITE_ELYTRA.get(), new Identifier("broken"), (itemStack, clientWorld, livingEntity, i) -> ElytraItem.isUsable(itemStack) ? 0.0F : 1.0F);
         ItemPropertiesRegistry.register(NETHERITE_FISHING_ROD.get(), new Identifier("cast"), (itemStack, clientWorld, livingEntity, i) -> {

@@ -13,7 +13,7 @@ import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 
-public class NetheriteExtScreenHandlers {
+public final class NetheriteScreenHandlers {
     public static final DeferredRegister<ScreenHandlerType<?>> REGISTRY = DeferredRegister.create(NetheriteExtension.MOD_ID, RegistryKeys.SCREEN_HANDLER);
 
     public static final RegistrySupplier<ScreenHandlerType<NetheriteAnvilScreenHandler>> NETHERITE_ANVIL = register("netherite_anvil", NetheriteAnvilScreenHandler::new);
@@ -24,7 +24,7 @@ public class NetheriteExtScreenHandlers {
     }
 
     public static void initializeClient() {
-        MenuRegistry.registerScreenFactory(NetheriteExtScreenHandlers.NETHERITE_ANVIL.get(), NetheriteAnvilScreen::new);
-        MenuRegistry.registerScreenFactory(NetheriteExtScreenHandlers.NETHERITE_BEACON.get(), NetheriteBeaconScreen::new);
+        MenuRegistry.registerScreenFactory(NetheriteScreenHandlers.NETHERITE_ANVIL.get(), NetheriteAnvilScreen::new);
+        MenuRegistry.registerScreenFactory(NetheriteScreenHandlers.NETHERITE_BEACON.get(), NetheriteBeaconScreen::new);
     }
 }

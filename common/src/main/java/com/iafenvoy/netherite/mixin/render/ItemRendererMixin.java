@@ -1,6 +1,6 @@
 package com.iafenvoy.netherite.mixin.render;
 
-import com.iafenvoy.netherite.registry.NetheriteExtItems;
+import com.iafenvoy.netherite.registry.NetheriteItems;
 import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
@@ -22,7 +22,7 @@ public abstract class ItemRendererMixin {
 
     @ModifyVariable(method = "getModel", at = @At(value = "STORE", target = "Lnet/minecraft/client/render/item/ItemModels;getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;", ordinal = 2))
     public BakedModel getHeldNetheriteTridentModel(BakedModel value, ItemStack stack) {
-        if (stack.isOf(NetheriteExtItems.NETHERITE_TRIDENT.get()))
+        if (stack.isOf(NetheriteItems.NETHERITE_TRIDENT.get()))
             return this.models.getModelManager().getModel(new ModelIdentifier(MOD_ID, "netherite_trident_in_hand", "inventory"));
         return value;
     }

@@ -11,12 +11,12 @@ import net.minecraft.text.Text;
 
 import java.util.function.Supplier;
 
-public class NetheriteExtItemGroups {
+public final class NetheriteItemGroups {
     public static final DeferredRegister<ItemGroup> REGISTRY = DeferredRegister.create(NetheriteExtension.MOD_ID, RegistryKeys.ITEM_GROUP);
 
     public static final RegistrySupplier<ItemGroup> MAIN = register("main", () -> CreativeTabRegistry.create(
             Text.translatable("itemGroup." + NetheriteExtension.MOD_ID + ".main"),
-            () -> new ItemStack(NetheriteExtItems.NETHERITE_ELYTRA.get())
+            () -> new ItemStack(NetheriteItems.NETHERITE_ELYTRA.get())
     ));
 
     private static RegistrySupplier<ItemGroup> register(String id, Supplier<ItemGroup> group) {

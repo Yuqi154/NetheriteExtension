@@ -12,7 +12,7 @@ import net.minecraft.registry.RegistryKeys;
 
 import java.util.function.Supplier;
 
-public final class NetheriteExtRecipeSerializers {
+public final class NetheriteRecipeSerializers {
     public static final DeferredRegister<RecipeSerializer<?>> REGISTRY = DeferredRegister.create(NetheriteExtension.MOD_ID, RegistryKeys.RECIPE_SERIALIZER);
 
     public static final RegistrySupplier<SpecialRecipeSerializer<NetheriteShulkerBoxColoringRecipe>> NETHERITE_SHULKER_BOX = register("crafting_special_netheriteshulkerboxcoloring", () -> new SpecialRecipeSerializer<>(NetheriteShulkerBoxColoringRecipe::new));

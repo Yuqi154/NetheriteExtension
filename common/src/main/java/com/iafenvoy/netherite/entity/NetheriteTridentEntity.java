@@ -1,7 +1,7 @@
 package com.iafenvoy.netherite.entity;
 
 import com.iafenvoy.netherite.config.NetheriteExtensionConfig;
-import com.iafenvoy.netherite.registry.NetheriteExtItems;
+import com.iafenvoy.netherite.registry.NetheriteItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 public class NetheriteTridentEntity extends TridentEntity {
     public NetheriteTridentEntity(EntityType<? extends TridentEntity> entityType, World world) {
         super(entityType, world);
-        this.tridentStack = new ItemStack(NetheriteExtItems.NETHERITE_TRIDENT.get());
+        this.tridentStack = new ItemStack(NetheriteItems.NETHERITE_TRIDENT.get());
     }
 
     public NetheriteTridentEntity(World world, LivingEntity owner, ItemStack stack) {

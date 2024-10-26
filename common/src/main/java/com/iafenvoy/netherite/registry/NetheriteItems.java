@@ -27,7 +27,7 @@ import net.minecraft.util.Rarity;
 import java.util.List;
 import java.util.function.Supplier;
 
-public final class NetheriteExtItems {
+public final class NetheriteItems {
     public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(NetheriteExtension.MOD_ID, RegistryKeys.ITEM);
 
     public static final Item.Settings NETHERITE_SHULKER_BOX_ITEM_SETTINGS = new Item.Settings().maxCount(1).fireproof();
@@ -36,7 +36,7 @@ public final class NetheriteExtItems {
         if (!(block instanceof NetheriteShulkerBoxBlock)) return ActionResult.PASS;
         else {
             if (!world.isClient) {
-                ItemStack itemStack = new ItemStack(NetheriteExtBlocks.NETHERITE_SHULKER_BOX.get());
+                ItemStack itemStack = new ItemStack(NetheriteBlocks.NETHERITE_SHULKER_BOX.get());
                 if (stack.hasNbt()) itemStack.setNbt(stack.getOrCreateNbt().copy());
                 player.setStackInHand(hand, itemStack);
                 player.incrementStat(Stats.CLEAN_SHULKER_BOX);
@@ -50,27 +50,27 @@ public final class NetheriteExtItems {
     public static final RegistrySupplier<Item> NETHERITE_BOW = register(new Identifier(NetheriteExtension.MOD_ID, "netherite_bow"), () -> new NetheriteBowItem(new Item.Settings().maxDamage(NetheriteExtensionConfig.getInstance().durability.bow).fireproof()));
     public static final RegistrySupplier<Item> NETHERITE_CROSSBOW = register(new Identifier(NetheriteExtension.MOD_ID, "netherite_crossbow"), () -> new CrossbowItem(new Item.Settings().maxDamage(NetheriteExtensionConfig.getInstance().durability.crossbow).fireproof()));
     public static final RegistrySupplier<Item> NETHERITE_TRIDENT = register(new Identifier(NetheriteExtension.MOD_ID, "netherite_trident"), () -> new NetheriteTridentItem(new Item.Settings().maxDamage(NetheriteExtensionConfig.getInstance().durability.trident).fireproof()));
-    public static final RegistrySupplier<Item> NETHERITE_SHULKER_BOX = register("netherite_shulker_box", () -> new BlockItem(NetheriteExtBlocks.NETHERITE_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_WHITE_SHULKER_BOX = register("netherite_white_shulker_box", () -> new BlockItem(NetheriteExtBlocks.NETHERITE_WHITE_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_ORANGE_SHULKER_BOX = register("netherite_orange_shulker_box", () -> new BlockItem(NetheriteExtBlocks.NETHERITE_ORANGE_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_MAGENTA_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_MAGENTA_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_MAGENTA_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_LIGHT_BLUE_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_LIGHT_BLUE_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_LIGHT_BLUE_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_YELLOW_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_YELLOW_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_YELLOW_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_LIME_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_LIME_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_LIME_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_PINK_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_PINK_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_PINK_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_GRAY_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_GRAY_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_GRAY_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_LIGHT_GRAY_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_LIGHT_GRAY_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_LIGHT_GRAY_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_CYAN_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_CYAN_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_CYAN_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_PURPLE_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_PURPLE_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_PURPLE_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_BLUE_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_BLUE_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_BLUE_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_BROWN_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_BROWN_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_BROWN_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_GREEN_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_GREEN_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_GREEN_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_RED_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_RED_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_RED_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_BLACK_SHULKER_BOX = register(NetheriteExtBlocks.NETHERITE_BLACK_SHULKER_BOX, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_BLACK_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
-    public static final RegistrySupplier<Item> NETHERITE_BEACON = register(NetheriteExtBlocks.NETHERITE_BEACON, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_BEACON.get(), new Item.Settings().maxCount(64).fireproof()));
+    public static final RegistrySupplier<Item> NETHERITE_SHULKER_BOX = register("netherite_shulker_box", () -> new BlockItem(NetheriteBlocks.NETHERITE_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_WHITE_SHULKER_BOX = register("netherite_white_shulker_box", () -> new BlockItem(NetheriteBlocks.NETHERITE_WHITE_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_ORANGE_SHULKER_BOX = register("netherite_orange_shulker_box", () -> new BlockItem(NetheriteBlocks.NETHERITE_ORANGE_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_MAGENTA_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_MAGENTA_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_MAGENTA_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_LIGHT_BLUE_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_LIGHT_BLUE_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_LIGHT_BLUE_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_YELLOW_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_YELLOW_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_YELLOW_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_LIME_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_LIME_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_LIME_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_PINK_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_PINK_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_PINK_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_GRAY_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_GRAY_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_GRAY_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_LIGHT_GRAY_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_LIGHT_GRAY_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_LIGHT_GRAY_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_CYAN_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_CYAN_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_CYAN_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_PURPLE_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_PURPLE_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_PURPLE_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_BLUE_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_BLUE_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_BLUE_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_BROWN_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_BROWN_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_BROWN_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_GREEN_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_GREEN_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_GREEN_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_RED_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_RED_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_RED_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_BLACK_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_BLACK_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_BLACK_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
+    public static final RegistrySupplier<Item> NETHERITE_BEACON = register(NetheriteBlocks.NETHERITE_BEACON, () -> new BlockItem(NetheriteBlocks.NETHERITE_BEACON.get(), new Item.Settings().maxCount(64).fireproof()));
     public static final RegistrySupplier<Item> NETHERITE_HORSE_ARMOR = register(new Identifier(NetheriteExtension.MOD_ID, "netherite_horse_armor"), () -> new NetheriteHorseArmorItem(15, new Item.Settings().maxCount(1).fireproof()));
-    public static final RegistrySupplier<Item> FAKE_NETHERITE_BLOCK = register(NetheriteExtBlocks.FAKE_NETHERITE_BLOCK, () -> new BlockItem(NetheriteExtBlocks.FAKE_NETHERITE_BLOCK.get(), new Item.Settings().fireproof()));
-    public static final RegistrySupplier<Item> NETHERITE_ANVIL_ITEM = register(NetheriteExtBlocks.NETHERITE_ANVIL_BLOCK, () -> new BlockItem(NetheriteExtBlocks.NETHERITE_ANVIL_BLOCK.get(), new Item.Settings().fireproof()));
+    public static final RegistrySupplier<Item> FAKE_NETHERITE_BLOCK = register(NetheriteBlocks.FAKE_NETHERITE_BLOCK, () -> new BlockItem(NetheriteBlocks.FAKE_NETHERITE_BLOCK.get(), new Item.Settings().fireproof()));
+    public static final RegistrySupplier<Item> NETHERITE_ANVIL_ITEM = register(NetheriteBlocks.NETHERITE_ANVIL_BLOCK, () -> new BlockItem(NetheriteBlocks.NETHERITE_ANVIL_BLOCK.get(), new Item.Settings().fireproof()));
     public static final RegistrySupplier<Item> NETHERITE_SHEARS = register(new Identifier(NetheriteExtension.MOD_ID, "netherite_shears"), () -> new ShearsItem(new Item.Settings().fireproof().maxDamage(NetheriteExtensionConfig.getInstance().durability.shears)));
     public static final RegistrySupplier<Item> NETHERITE_SHIELD = register(new Identifier(NetheriteExtension.MOD_ID, "netherite_shield"), () -> NetheriteShieldItem.create(new Item.Settings().fireproof().maxDamage(NetheriteExtensionConfig.getInstance().durability.shield)));
 
@@ -102,7 +102,7 @@ public final class NetheriteExtItems {
     }
 
     public static void init() {
-        CreativeTabRegistry.append(NetheriteExtItemGroups.MAIN,
+        CreativeTabRegistry.append(NetheriteItemGroups.MAIN,
                 NETHERITE_SHULKER_BOX,
                 NETHERITE_WHITE_SHULKER_BOX,
                 NETHERITE_LIGHT_GRAY_SHULKER_BOX,

@@ -1,6 +1,6 @@
 package com.iafenvoy.netherite.mixin;
 
-import com.iafenvoy.netherite.registry.NetheriteExtItems;
+import com.iafenvoy.netherite.registry.NetheriteItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -23,7 +23,7 @@ public class ItemPredicateMixin {
 
     @ModifyVariable(method = "test", at = @At("HEAD"), argsOnly = true)
     public ItemStack letNetheriteShearsCountAsShears(ItemStack stack) {
-        if (this.items != null && this.items.contains(Items.SHEARS) && stack.isOf(NetheriteExtItems.NETHERITE_SHEARS.get())) {
+        if (this.items != null && this.items.contains(Items.SHEARS) && stack.isOf(NetheriteItems.NETHERITE_SHEARS.get())) {
             ItemStack itemStack = new ItemStack(Items.SHEARS);
             itemStack.setCount(stack.getCount());
             itemStack.setNbt(stack.getOrCreateNbt());

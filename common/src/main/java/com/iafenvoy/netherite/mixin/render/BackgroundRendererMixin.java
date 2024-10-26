@@ -1,7 +1,7 @@
 package com.iafenvoy.netherite.mixin.render;
 
 import com.iafenvoy.netherite.NetheriteExtensionClient;
-import com.iafenvoy.netherite.registry.NetheriteExtStatusEffects;
+import com.iafenvoy.netherite.registry.NetheriteStatusEffects;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -20,7 +20,7 @@ public class BackgroundRendererMixin {
     @Inject(at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderFogStart(F)V"), method = "applyFog")
     private static void applyFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta, CallbackInfo ci, @Local(name = "fogData", ordinal = 0) BackgroundRenderer.FogData fogData) {
         if (camera.getSubmersionType() == CameraSubmersionType.LAVA)
-            if (camera.getFocusedEntity() instanceof LivingEntity livingEntity && livingEntity.hasStatusEffect(NetheriteExtStatusEffects.LAVA_VISION.get()))
-                fogData.fogEnd = (float) (3.0F + NetheriteExtensionClient.LAVA_VISION_DISTANCE * livingEntity.getStatusEffect(NetheriteExtStatusEffects.LAVA_VISION.get()).getAmplifier());
+            if (camera.getFocusedEntity() instanceof LivingEntity livingEntity && livingEntity.hasStatusEffect(NetheriteStatusEffects.LAVA_VISION.get()))
+                fogData.fogEnd = (float) (3.0F + NetheriteExtensionClient.LAVA_VISION_DISTANCE * livingEntity.getStatusEffect(NetheriteStatusEffects.LAVA_VISION.get()).getAmplifier());
     }
 }

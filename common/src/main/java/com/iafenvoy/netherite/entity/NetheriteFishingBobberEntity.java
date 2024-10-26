@@ -1,6 +1,6 @@
 package com.iafenvoy.netherite.entity;
 
-import com.iafenvoy.netherite.registry.NetheriteExtItems;
+import com.iafenvoy.netherite.registry.NetheriteItems;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import static com.iafenvoy.netherite.registry.NetheriteExtLoots.LAVA_FISHING_LOOT_TABLE;
+import static com.iafenvoy.netherite.registry.NetheriteLoots.LAVA_FISHING_LOOT_TABLE;
 
 public class NetheriteFishingBobberEntity extends FishingBobberEntity {
     public NetheriteFishingBobberEntity(PlayerEntity thrower, World world, int lureLevel, int luckOfTheSeaLevel) {
@@ -94,8 +94,8 @@ public class NetheriteFishingBobberEntity extends FishingBobberEntity {
     private boolean removeIfInvalid(PlayerEntity playerEntity) {
         ItemStack itemStack = playerEntity.getMainHandStack();
         ItemStack itemStack2 = playerEntity.getOffHandStack();
-        boolean bl = itemStack.getItem() == NetheriteExtItems.NETHERITE_FISHING_ROD;
-        boolean bl2 = itemStack2.getItem() == NetheriteExtItems.NETHERITE_FISHING_ROD;
+        boolean bl = itemStack.getItem() == NetheriteItems.NETHERITE_FISHING_ROD;
+        boolean bl2 = itemStack2.getItem() == NetheriteItems.NETHERITE_FISHING_ROD;
         if (!playerEntity.isRemoved() && playerEntity.isAlive() && (bl || bl2) && this.squaredDistanceTo(playerEntity) <= 1024.0D)
             return false;
         else {

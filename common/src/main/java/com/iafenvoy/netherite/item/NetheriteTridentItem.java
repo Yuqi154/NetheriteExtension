@@ -2,7 +2,7 @@ package com.iafenvoy.netherite.item;
 
 import com.iafenvoy.netherite.config.NetheriteExtensionConfig;
 import com.iafenvoy.netherite.entity.NetheriteTridentEntity;
-import com.iafenvoy.netherite.registry.NetheriteExtCriteria;
+import com.iafenvoy.netherite.registry.NetheriteCriteria;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
@@ -48,7 +48,7 @@ public class NetheriteTridentItem extends TridentItem {
                             if (!playerEntity.getAbilities().creativeMode)
                                 playerEntity.getInventory().removeOne(stack);
                         } else
-                            NetheriteExtCriteria.RIPTIDE_NETHERITE_TRIDENT.trigger((ServerPlayerEntity) playerEntity);
+                            NetheriteCriteria.RIPTIDE_NETHERITE_TRIDENT.trigger((ServerPlayerEntity) playerEntity);
                     }
                     playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
                     if (riptideLevel > 0) {

@@ -9,7 +9,7 @@ import net.minecraft.registry.RegistryKeys;
 
 import java.util.function.Supplier;
 
-public class NetheriteExtStatusEffects {
+public final class NetheriteStatusEffects {
     public static final DeferredRegister<StatusEffect> REGISTRY = DeferredRegister.create(NetheriteExtension.MOD_ID, RegistryKeys.STATUS_EFFECT);
 
     public static final RegistrySupplier<StatusEffect> LAVA_VISION = register("lava_vision", () -> new StatusEffect(StatusEffectCategory.BENEFICIAL, 16744207));

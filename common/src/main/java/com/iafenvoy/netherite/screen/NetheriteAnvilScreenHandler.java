@@ -1,8 +1,8 @@
 package com.iafenvoy.netherite.screen;
 
 import com.iafenvoy.netherite.config.NetheriteExtensionConfig;
-import com.iafenvoy.netherite.registry.NetheriteExtBlocks;
-import com.iafenvoy.netherite.registry.NetheriteExtScreenHandlers;
+import com.iafenvoy.netherite.registry.NetheriteBlocks;
+import com.iafenvoy.netherite.registry.NetheriteScreenHandlers;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -38,7 +38,7 @@ public class NetheriteAnvilScreenHandler extends ForgingScreenHandler {
     }
 
     public NetheriteAnvilScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context) {
-        super(NetheriteExtScreenHandlers.NETHERITE_ANVIL.get(), syncId, inventory, context);
+        super(NetheriteScreenHandlers.NETHERITE_ANVIL.get(), syncId, inventory, context);
         this.addProperty(this.levelCost);
     }
 
@@ -62,7 +62,7 @@ public class NetheriteAnvilScreenHandler extends ForgingScreenHandler {
 
     @Override
     protected boolean canUse(BlockState state) {
-        return state.isOf(NetheriteExtBlocks.NETHERITE_ANVIL_BLOCK.get());
+        return state.isOf(NetheriteBlocks.NETHERITE_ANVIL_BLOCK.get());
     }
 
     public int getLevelCost() {

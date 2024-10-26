@@ -1,7 +1,7 @@
 package com.iafenvoy.netherite.screen;
 
-import com.iafenvoy.netherite.registry.NetheriteExtBlocks;
-import com.iafenvoy.netherite.registry.NetheriteExtScreenHandlers;
+import com.iafenvoy.netherite.registry.NetheriteBlocks;
+import com.iafenvoy.netherite.registry.NetheriteScreenHandlers;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.effect.StatusEffect;
@@ -41,7 +41,7 @@ public class NetheriteBeaconScreenHandler extends ScreenHandler {
     }
 
     public NetheriteBeaconScreenHandler(int syncId, Inventory inventory, PropertyDelegate propertyDelegate, ScreenHandlerContext context) {
-        super(NetheriteExtScreenHandlers.NETHERITE_BEACON.get(), syncId);
+        super(NetheriteScreenHandlers.NETHERITE_BEACON.get(), syncId);
         checkDataCount(propertyDelegate, 3);
         this.propertyDelegate = propertyDelegate;
         this.context = context;
@@ -68,7 +68,7 @@ public class NetheriteBeaconScreenHandler extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(this.context, player, NetheriteExtBlocks.NETHERITE_BEACON.get());
+        return canUse(this.context, player, NetheriteBlocks.NETHERITE_BEACON.get());
     }
 
     @Override

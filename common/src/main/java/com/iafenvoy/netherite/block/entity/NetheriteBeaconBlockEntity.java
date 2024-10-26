@@ -2,9 +2,9 @@ package com.iafenvoy.netherite.block.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.iafenvoy.netherite.registry.NetheriteExtBlocks;
-import com.iafenvoy.netherite.registry.NetheriteExtCriteria;
-import com.iafenvoy.netherite.registry.NetheriteExtStatusEffects;
+import com.iafenvoy.netherite.registry.NetheriteBlocks;
+import com.iafenvoy.netherite.registry.NetheriteCriteria;
+import com.iafenvoy.netherite.registry.NetheriteStatusEffects;
 import com.iafenvoy.netherite.screen.NetheriteBeaconScreenHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -101,7 +101,7 @@ public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScre
     private ContainerLock lock = ContainerLock.EMPTY;
 
     public NetheriteBeaconBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(NetheriteExtBlocks.NETHERITE_BEACON_BLOCK_ENTITY.get(), blockPos, blockState);
+        super(NetheriteBlocks.NETHERITE_BEACON_BLOCK_ENTITY.get(), blockPos, blockState);
     }
 
     @Nullable
@@ -164,12 +164,12 @@ public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScre
                 if (blockEntity.netheriteLevel == 164) {
                     List<ServerPlayerEntity> var14 = world.getNonSpectatingEntities(ServerPlayerEntity.class, new Box(i, j, k, i, j - 4, k).expand(10.0D, 5.0D, 10.0D));
                     for (ServerPlayerEntity serverPlayerEntity : var14)
-                        NetheriteExtCriteria.FULL_NETHERITE_NETHERITE_BEACON.trigger(serverPlayerEntity, blockEntity);
+                        NetheriteCriteria.FULL_NETHERITE_NETHERITE_BEACON.trigger(serverPlayerEntity, blockEntity);
                 }
                 if (blockEntity.beaconLevel == 4) {
                     List<ServerPlayerEntity> var14 = world.getNonSpectatingEntities(ServerPlayerEntity.class, new Box(i, j, k, i, j - 4, k).expand(10.0D, 5.0D, 10.0D));
                     for (ServerPlayerEntity serverPlayerEntity : var14)
-                        NetheriteExtCriteria.CONSTRUCT_NETHERITE_BEACON.trigger(serverPlayerEntity, blockEntity);
+                        NetheriteCriteria.CONSTRUCT_NETHERITE_BEACON.trigger(serverPlayerEntity, blockEntity);
                 }
             }
 
@@ -250,7 +250,7 @@ public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScre
             for (PlayerEntity player : list) {
                 player.addStatusEffect(new StatusEffectInstance(this.primary, effectLength, primaryEffectLevel, true, true));
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, effectLength, 0, true, true));
-                player.addStatusEffect(new StatusEffectInstance(NetheriteExtStatusEffects.LAVA_VISION.get(), effectLength, Math.min(this.netheriteLevel, 127), true, true));
+                player.addStatusEffect(new StatusEffectInstance(NetheriteStatusEffects.LAVA_VISION.get(), effectLength, Math.min(this.netheriteLevel, 127), true, true));
 
                 // regeneration case
                 if (this.beaconLevel >= 4 && this.primary != this.secondary && this.secondary != null)
