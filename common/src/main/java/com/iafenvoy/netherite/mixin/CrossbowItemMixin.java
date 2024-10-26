@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(CrossbowItem.class)
 public class CrossbowItemMixin {
     @ModifyReturnValue(method = "getSpeed", at = @At("RETURN"))
-    private static float addCustomSpeed(float origin, @Local(name = "stack") ItemStack stack) {
+    private static float addCustomSpeed(float origin, @Local(argsOnly = true) ItemStack stack) {
         if (stack.isOf(NetheriteItems.NETHERITE_CROSSBOW.get()))
             return (float) (origin * NetheriteExtensionConfig.INSTANCE.damage.crossbow_damage_multiplier + NetheriteExtensionConfig.INSTANCE.damage.crossbow_damage_addition);
         return origin;
