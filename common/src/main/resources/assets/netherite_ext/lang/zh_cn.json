@@ -81,5 +81,11 @@
   "advancements.netherite_ext.netherite_horse_armor_special.title": "Nice Lambo",
   "advancements.netherite_ext.netherite_horse_armor_special.description": "骑上装备有下界合金马铠的马",
   "advancements.netherite_ext.netherite_shears.title": "是时候理发了",
-  "advancements.netherite_ext.netherite_shears.description": "获得下界合金剪刀"
+  "advancements.netherite_ext.netherite_shears.description": "获得下界合金剪刀",
+  "container.netherite_beacon": "下界合金信标",
+  "advancements.netherite_ext.netherite_shield.title": "固若金汤",
+  "advancements.netherite_ext.netherite_shield.description": "获得下界合金盾牌",
+  "advancements.netherite_ext.netherite_shield_special.title": "以逸待劳",
+  "advancements.netherite_ext.netherite_shield_special.description": "使用下界合金盾牌阻挡烈焰人的火球",
+  "itemGroup.netherite_ext.main": "下界合金拓展"
 }
