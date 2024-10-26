@@ -214,7 +214,7 @@ public class NetheriteAnvilScreenHandler extends ForgingScreenHandler {
             }
 
             // this is the important line that changes things
-            double cost = (1d - NetheriteExtensionConfig.getInstance().anvil.xp_reduction) * (repairCost + uses);
+            double cost = (1d - NetheriteExtensionConfig.INSTANCE.anvil.xp_reduction) * (repairCost + uses);
 
             this.levelCost.set(cost < BASE_COST ? BASE_COST : (int) cost);
             if (uses <= 0) copiedInput = ItemStack.EMPTY;

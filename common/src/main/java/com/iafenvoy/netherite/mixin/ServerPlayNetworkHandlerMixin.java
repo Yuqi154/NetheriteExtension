@@ -1,19 +1,10 @@
 package com.iafenvoy.netherite.mixin;
 
-import com.iafenvoy.netherite.NetheriteExtension;
-import com.iafenvoy.netherite.config.NetheriteExtensionConfig;
-import com.iafenvoy.netherite.network.LavaVisionUpdatePacket;
-import com.iafenvoy.netherite.network.PacketBufferUtils;
 import com.iafenvoy.netherite.screen.NetheriteAnvilScreenHandler;
-import dev.architectury.networking.NetworkManager;
 import net.minecraft.SharedConstants;
-import net.minecraft.network.ClientConnection;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.c2s.play.RenameItemC2SPacket;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,19 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ServerPlayNetworkHandlerMixin {
     @Shadow
     public ServerPlayerEntity player;
-
-    @Inject(method = "<init>", at = @At("RETURN"))
-    public void init(MinecraftServer server, ClientConnection connection, ServerPlayerEntity player, CallbackInfo info) {
-        NetheriteExtension.CONNECTED_CLIENTS.add(player);
-        PacketByteBuf buf = PacketBufferUtils.create();
-        buf.writeDouble(NetheriteExtensionConfig.getInstance().graphics.lava_vision_distance);
-        NetworkManager.sendToPlayer(player, LavaVisionUpdatePacket.ID, buf);
-    }
-
-    @Inject(method = "disconnect", at = @At("RETURN"))
-    public void disconnect(Text reason, CallbackInfo info) {
-        NetheriteExtension.CONNECTED_CLIENTS.remove(((ServerPlayNetworkHandler) (Object) this).player);
-    }
 
     @Inject(method = "onRenameItem", at = @At("RETURN"))
     public void onRenameItem(RenameItemC2SPacket packet, CallbackInfo info) {

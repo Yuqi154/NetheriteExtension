@@ -5,16 +5,11 @@ import com.iafenvoy.netherite.registry.*;
 import com.iafenvoy.netherite.screen.NetheriteBeaconScreenHandler;
 import com.mojang.logging.LogUtils;
 import dev.architectury.networking.NetworkManager;
-import net.minecraft.server.network.ServerPlayerEntity;
 import org.slf4j.Logger;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class NetheriteExtension {
     public static final String MOD_ID = "netherite_ext";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final Collection<ServerPlayerEntity> CONNECTED_CLIENTS = new ArrayList<>();
 
     public static void init() {
         NetheriteBlocks.BLOCK_REGISTRY.register();
@@ -30,7 +25,6 @@ public class NetheriteExtension {
         NetheriteCriteria.init();
         NetheriteItems.init();
         NetheriteStats.init();
-
         NetworkManager.registerReceiver(NetworkManager.Side.C2S, UpdateNetheriteBeaconC2SPacket.ID, (buf, ctx) -> {
             UpdateNetheriteBeaconC2SPacket packet = new UpdateNetheriteBeaconC2SPacket(buf);
             ctx.queue(() -> {

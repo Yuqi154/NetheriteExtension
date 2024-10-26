@@ -1,6 +1,6 @@
 package com.iafenvoy.netherite.mixin;
 
-import com.iafenvoy.netherite.NetheriteExtensionClient;
+import com.iafenvoy.netherite.config.NetheriteExtensionConfig;
 import com.iafenvoy.netherite.registry.NetheriteStatusEffects;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.fabricmc.api.EnvType;
@@ -21,6 +21,6 @@ public class BackgroundRendererMixin {
     private static void applyFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta, CallbackInfo ci, @Local(name = "fogData", ordinal = 0) BackgroundRenderer.FogData fogData) {
         if (camera.getSubmersionType() == CameraSubmersionType.LAVA)
             if (camera.getFocusedEntity() instanceof LivingEntity livingEntity && livingEntity.hasStatusEffect(NetheriteStatusEffects.LAVA_VISION.get()))
-                fogData.fogEnd = (float) (3.0F + NetheriteExtensionClient.LAVA_VISION_DISTANCE * livingEntity.getStatusEffect(NetheriteStatusEffects.LAVA_VISION.get()).getAmplifier());
+                fogData.fogEnd = (float) (3.0F + NetheriteExtensionConfig.INSTANCE.graphics.lava_vision_distance * livingEntity.getStatusEffect(NetheriteStatusEffects.LAVA_VISION.get()).getAmplifier());
     }
 }

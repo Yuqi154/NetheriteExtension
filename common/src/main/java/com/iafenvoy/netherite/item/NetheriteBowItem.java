@@ -61,6 +61,6 @@ public class NetheriteBowItem extends BowItem {
     }
 
     public void modifyBaseDamage(PersistentProjectileEntity projectile) {
-        projectile.setDamage(projectile.getDamage() * NetheriteExtensionConfig.getInstance().damage.bow_damage_multiplier + NetheriteExtensionConfig.getInstance().damage.bow_damage_addition);
+        projectile.setDamage(projectile.getDamage() * NetheriteExtensionConfig.INSTANCE.damage.bow_damage_multiplier + NetheriteExtensionConfig.INSTANCE.damage.bow_damage_addition);
     }
 }

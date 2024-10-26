@@ -12,7 +12,7 @@ import net.minecraft.util.Lazy;
 import java.util.function.Supplier;
 
 public enum NetheriteElytraArmorMaterials implements ArmorMaterial {
-    NETHERITE_ELYTRA_MATERIAL("netherite_elytra", 37, new int[]{3, 6, NetheriteExtensionConfig.getInstance().damage.elytra_armor_points, 3}, 15, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.ofItems(Items.NETHERITE_INGOT));
+    NETHERITE_ELYTRA_MATERIAL("netherite_elytra", 37, new int[]{3, 6, NetheriteExtensionConfig.INSTANCE.damage.elytra_armor_points, 3}, 15, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.ofItems(Items.NETHERITE_INGOT));
 
     private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
     private final String name;

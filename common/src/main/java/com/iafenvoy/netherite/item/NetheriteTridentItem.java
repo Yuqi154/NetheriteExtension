@@ -25,7 +25,7 @@ import net.minecraft.world.World;
 public class NetheriteTridentItem extends TridentItem {
     public NetheriteTridentItem(Settings settings) {
         super(settings);
-        this.attributeModifiers.get(EntityAttributes.GENERIC_ATTACK_DAMAGE).forEach(eam -> eam.value = eam.getValue() * NetheriteExtensionConfig.getInstance().damage.trident_damage_multiplier + NetheriteExtensionConfig.getInstance().damage.trident_damage_addition);
+        this.attributeModifiers.get(EntityAttributes.GENERIC_ATTACK_DAMAGE).forEach(eam -> eam.value = eam.getValue() * NetheriteExtensionConfig.INSTANCE.damage.trident_damage_multiplier + NetheriteExtensionConfig.INSTANCE.damage.trident_damage_addition);
     }
 
     @Override
