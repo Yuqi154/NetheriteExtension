@@ -94,8 +94,8 @@ public class NetheriteFishingBobberEntity extends FishingBobberEntity {
     private boolean removeIfInvalid(PlayerEntity playerEntity) {
         ItemStack itemStack = playerEntity.getMainHandStack();
         ItemStack itemStack2 = playerEntity.getOffHandStack();
-        boolean bl = itemStack.getItem() == NetheriteItems.NETHERITE_FISHING_ROD;
-        boolean bl2 = itemStack2.getItem() == NetheriteItems.NETHERITE_FISHING_ROD;
+        boolean bl = itemStack.isOf(NetheriteItems.NETHERITE_FISHING_ROD.get());
+        boolean bl2 = itemStack2.isOf(NetheriteItems.NETHERITE_FISHING_ROD.get());
         if (!playerEntity.isRemoved() && playerEntity.isAlive() && (bl || bl2) && this.squaredDistanceTo(playerEntity) <= 1024.0D)
             return false;
         else {

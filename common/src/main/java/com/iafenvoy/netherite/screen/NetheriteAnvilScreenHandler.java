@@ -80,10 +80,8 @@ public class NetheriteAnvilScreenHandler extends ForgingScreenHandler {
             if (!additionStack.isEmpty() && additionStack.getCount() > this.repairItemUsage) {
                 additionStack.decrement(this.repairItemUsage);
                 this.input.setStack(ADDITIONAL_SLOT, additionStack);
-            } else
-                this.input.setStack(ADDITIONAL_SLOT, ItemStack.EMPTY);
-        } else
-            this.input.setStack(ADDITIONAL_SLOT, ItemStack.EMPTY);
+            } else this.input.setStack(ADDITIONAL_SLOT, ItemStack.EMPTY);
+        } else this.input.setStack(ADDITIONAL_SLOT, ItemStack.EMPTY);
 
         this.levelCost.set(0);
         this.context.run((world, blockPos) -> world.syncWorldEvent(WorldEvents.ANVIL_USED, blockPos, 0));

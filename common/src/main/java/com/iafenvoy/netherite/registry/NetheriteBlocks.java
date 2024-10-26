@@ -41,16 +41,14 @@ public final class NetheriteBlocks {
     public static final RegistrySupplier<Block> NETHERITE_GREEN_SHULKER_BOX = BLOCK_REGISTRY.register("netherite_green_shulker_box", () -> createShulkerBoxBlock(DyeColor.GREEN, AbstractBlock.Settings.create().mapColor(MapColor.GREEN)));
     public static final RegistrySupplier<Block> NETHERITE_RED_SHULKER_BOX = BLOCK_REGISTRY.register("netherite_red_shulker_box", () -> createShulkerBoxBlock(DyeColor.RED, AbstractBlock.Settings.create().mapColor(MapColor.RED)));
     public static final RegistrySupplier<Block> NETHERITE_BLACK_SHULKER_BOX = BLOCK_REGISTRY.register("netherite_black_shulker_box", () -> createShulkerBoxBlock(DyeColor.BLACK, AbstractBlock.Settings.create().mapColor(MapColor.BLACK)));
-
     public static final RegistrySupplier<Block> FAKE_NETHERITE_BLOCK = BLOCK_REGISTRY.register("fake_netherite_block", () -> new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).mapColor(MapColor.BLACK).sounds(BlockSoundGroup.NETHERITE)));
-
     public static final RegistrySupplier<Block> NETHERITE_ANVIL_BLOCK = BLOCK_REGISTRY.register("netherite_anvil", () -> new NetheriteAnvilBlock(AbstractBlock.Settings.copy(Blocks.ANVIL)));
-
     public static final RegistrySupplier<Block> NETHERITE_BEACON = BLOCK_REGISTRY.register("netherite_beacon", () -> new NetheriteBeaconBlock(AbstractBlock.Settings.copy(Blocks.BEACON)));
 
     public static final RegistrySupplier<BlockEntityType<NetheriteShulkerBoxBlockEntity>> NETHERITE_SHULKER_BOX_ENTITY = BLOCK_ENTITY_REGISTRY.register(new Identifier(NetheriteExtension.MOD_ID, "netherite_shulker_box"), () -> BlockEntityType.Builder.create(NetheriteShulkerBoxBlockEntity::new,
                     NETHERITE_SHULKER_BOX.get(), NETHERITE_BLACK_SHULKER_BOX.get(), NETHERITE_BLUE_SHULKER_BOX.get(), NETHERITE_BROWN_SHULKER_BOX.get(), NETHERITE_CYAN_SHULKER_BOX.get(), NETHERITE_GRAY_SHULKER_BOX.get(), NETHERITE_GREEN_SHULKER_BOX.get(), NETHERITE_LIGHT_BLUE_SHULKER_BOX.get(), NETHERITE_LIGHT_GRAY_SHULKER_BOX.get(), NETHERITE_LIME_SHULKER_BOX.get(), NETHERITE_MAGENTA_SHULKER_BOX.get(), NETHERITE_ORANGE_SHULKER_BOX.get(), NETHERITE_PINK_SHULKER_BOX.get(), NETHERITE_PURPLE_SHULKER_BOX.get(), NETHERITE_RED_SHULKER_BOX.get(), NETHERITE_WHITE_SHULKER_BOX.get(), NETHERITE_YELLOW_SHULKER_BOX.get())
             .build(null));
+    public static final RegistrySupplier<BlockEntityType<NetheriteBeaconBlockEntity>> NETHERITE_BEACON_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register(new Identifier(NetheriteExtension.MOD_ID, "netherite_beacon"), () -> BlockEntityType.Builder.create(NetheriteBeaconBlockEntity::new, NETHERITE_BEACON.get()).build(null));
 
     private static NetheriteShulkerBoxBlock createShulkerBoxBlock(DyeColor color, AbstractBlock.Settings settings) {
         AbstractBlock.ContextPredicate contextPredicate = (state, world, pos) -> {
@@ -68,6 +66,4 @@ public final class NetheriteBlocks {
                 .solidBlock((state, world, pos) -> true)
         );
     }
-
-    public static final RegistrySupplier<BlockEntityType<NetheriteBeaconBlockEntity>> NETHERITE_BEACON_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register(new Identifier(NetheriteExtension.MOD_ID, "netherite_beacon"), () -> BlockEntityType.Builder.create(NetheriteBeaconBlockEntity::new, NETHERITE_BEACON.get()).build(null));
 }

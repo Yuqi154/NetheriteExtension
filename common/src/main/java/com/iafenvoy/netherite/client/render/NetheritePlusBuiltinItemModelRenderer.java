@@ -1,11 +1,11 @@
 package com.iafenvoy.netherite.client.render;
 
 import com.iafenvoy.netherite.NetheriteExtension;
-import com.iafenvoy.netherite.NetheriteExtensionClient;
 import com.iafenvoy.netherite.block.NetheriteShulkerBoxBlock;
 import com.iafenvoy.netherite.block.entity.NetheriteShulkerBoxBlockEntity;
 import com.iafenvoy.netherite.registry.NetheriteBlocks;
 import com.iafenvoy.netherite.registry.NetheriteItems;
+import com.iafenvoy.netherite.registry.NetheriteRenderers;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.entity.BannerBlockEntity;
 import net.minecraft.block.entity.BannerPattern;
@@ -51,7 +51,7 @@ public class NetheritePlusBuiltinItemModelRenderer {
     }
 
     public void loadShieldModel() {
-        modelNetheriteShield = new ShieldEntityModel(this.entityModelLoader.getModelPart(NetheriteExtensionClient.NETHERITE_SHIELD_MODEL_LAYER));
+        modelNetheriteShield = new ShieldEntityModel(this.entityModelLoader.getModelPart(NetheriteRenderers.NETHERITE_SHIELD_MODEL_LAYER));
     }
 
     public static void renderTrident(TridentEntityModel model, ItemStack stack, ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {

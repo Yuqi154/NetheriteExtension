@@ -13,14 +13,14 @@
     "TridentEntityMixin"
   ],
   "client": [
+    "BackgroundRendererMixin",
     "BuiltinModelItemRendererMixin",
     "ClientPlayNetworkHandlerAccessor",
     "ClientPlayNetworkHandlerMixin",
+    "ItemRendererMixin",
     "LivingEntityRendererMixin",
     "MinecraftClientMixin",
-    "render.BackgroundRendererMixin",
-    "render.ItemRendererMixin",
-    "render.TridentEntityRendererMixin"
+    "TridentEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

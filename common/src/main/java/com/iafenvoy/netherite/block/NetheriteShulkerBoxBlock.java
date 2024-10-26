@@ -145,7 +145,7 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
         return checkType(type, NetheriteBlocks.NETHERITE_SHULKER_BOX_ENTITY.get(), NetheriteShulkerBoxBlockEntity::tick);
     }
 
-    public DyeColor getColor() {
+    public @Nullable DyeColor getColor() {
         return this.color;
     }
 

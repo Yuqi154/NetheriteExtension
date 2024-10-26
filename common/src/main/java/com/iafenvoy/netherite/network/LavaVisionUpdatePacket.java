@@ -4,5 +4,5 @@ import com.iafenvoy.netherite.NetheriteExtension;
 import net.minecraft.util.Identifier;
 
 public class LavaVisionUpdatePacket {
-    public static Identifier ID = new Identifier(NetheriteExtension.MOD_ID, "lava_vision_update");
+    public static final Identifier ID = new Identifier(NetheriteExtension.MOD_ID, "lava_vision_update");
 }

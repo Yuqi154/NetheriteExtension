@@ -1,4 +1,4 @@
-package com.iafenvoy.netherite.mixin.render;
+package com.iafenvoy.netherite.mixin;
 
 import com.iafenvoy.netherite.registry.NetheriteItems;
 import net.minecraft.client.render.item.ItemModels;

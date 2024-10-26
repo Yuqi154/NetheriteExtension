@@ -1,6 +1,6 @@
 package com.iafenvoy.netherite.fabric.mixin;
 
-import com.iafenvoy.netherite.NetheriteExtensionClient;
+import com.iafenvoy.netherite.registry.NetheriteRenderers;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
@@ -23,6 +23,6 @@ public abstract class ModelLoaderMixin {
 
     @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Ljava/util/Map;values()Ljava/util/Collection;"))
     public void addNetheriteTrident(BlockColors blockColors, Profiler profiler, Map<Identifier, JsonUnbakedModel> modelResources, Map<Identifier, List<ModelLoader.SourceTrackedData>> blockStateResources, CallbackInfo ci) {
-        NetheriteExtensionClient.registerModel(this::addModel);
+        NetheriteRenderers.registerModel(this::addModel);
     }
 }
