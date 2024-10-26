@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 
 import static com.iafenvoy.netherite.registry.NetheriteItems.*;
 
-public class NetheriteRenderers {
+public final class NetheriteRenderers {
     public static final EntityModelLayer NETHERITE_SHIELD_MODEL_LAYER = new EntityModelLayer(Identifier.of(NetheriteExtension.MOD_ID, "netherite_shield"), "main");
 
     public static void registerModelLayers() {
