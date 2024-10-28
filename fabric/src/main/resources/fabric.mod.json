@@ -11,7 +11,7 @@
     "sources": "https://github.com/ArkTechMC/NetheriteExtension"
   },
   "license": "MIT",
-  "icon": "assets/netherite_ext/icon.png",
+  "icon": "logo.jpg",
   "environment": "*",
   "entrypoints": {
     "main": [

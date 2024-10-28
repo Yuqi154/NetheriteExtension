@@ -12,7 +12,7 @@ description = '''
 The high version port of Netherite Plus Mod
 Add more netherite items into game.
 '''
-logoFile = "assets/netherite_ext/icon.png"
+logoFile = "logo.jpg"
 
 [[dependencies.netherite_ext]]
 modId = "forge"
