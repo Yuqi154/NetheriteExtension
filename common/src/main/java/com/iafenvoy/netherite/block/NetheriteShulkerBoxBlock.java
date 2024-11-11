@@ -10,7 +10,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.item.TooltipType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.ItemEntity;
@@ -23,6 +22,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.NbtCompound;
@@ -49,7 +49,7 @@ import java.util.List;
 
 public class NetheriteShulkerBoxBlock extends BlockWithEntity {
     public static final EnumProperty<Direction> FACING = FacingBlock.FACING;
-    public static final Identifier CONTENTS = new Identifier("contents");
+    public static final Identifier CONTENTS = Identifier.of("contents");
 
     @Nullable
     private final DyeColor color;

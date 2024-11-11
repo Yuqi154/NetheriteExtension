@@ -54,13 +54,13 @@ public class NetheritePlusBuiltinItemModelRenderer {
             matrices.pop();
             MinecraftClient.getInstance().getItemRenderer().renderItem(
                     stack, mode, false, matrices, vertexConsumers, light, overlay,
-                    MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(NetheriteExtension.MOD_ID, "netherite_trident", "inventory")));
+                    MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(Identifier.of(NetheriteExtension.MOD_ID, "netherite_trident"), "inventory")));
             matrices.push();
         } else {
             matrices.push();
             matrices.scale(1.0F, -1.0F, -1.0F);
-            VertexConsumer consumer = ItemRenderer.getDirectItemGlintConsumer(vertexConsumers, model.getLayer(new Identifier(NetheriteExtension.MOD_ID, "textures/entity/netherite_trident.png")), false, stack.hasGlint());
-            model.render(matrices, consumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+            VertexConsumer consumer = ItemRenderer.getDirectItemGlintConsumer(vertexConsumers, model.getLayer(Identifier.of(NetheriteExtension.MOD_ID, "textures/entity/netherite_trident.png")), false, stack.hasGlint());
+            model.render(matrices, consumer, light, overlay, -1);
             matrices.pop();
         }
     }
@@ -75,11 +75,11 @@ public class NetheritePlusBuiltinItemModelRenderer {
             matrices.scale(1.0F, -1.0F, -1.0F);
             SpriteIdentifier spriteIdentifier = bl ? NETHERITE_SHIELD_BASE : NETHERITE_SHIELD_BASE_NO_PATTERN;
             VertexConsumer vertexConsumer = spriteIdentifier.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getDirectItemGlintConsumer(vertices, modelNetheriteShield.getLayer(spriteIdentifier.getAtlasId()), true, itemStack.hasGlint()));
-            modelNetheriteShield.getHandle().render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+            modelNetheriteShield.getHandle().render(matrices, vertexConsumer, light, overlay, -1);
             if (bl)
                 BannerBlockEntityRenderer.renderCanvas(matrices, vertices, light, overlay, modelNetheriteShield.getPlate(), spriteIdentifier, false, itemStack.get(DataComponentTypes.BASE_COLOR), itemStack.get(DataComponentTypes.BANNER_PATTERNS), itemStack.hasGlint());
             else
-                modelNetheriteShield.getPlate().render(matrices, vertexConsumer, light, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+                modelNetheriteShield.getPlate().render(matrices, vertexConsumer, light, overlay, -1);
 
             matrices.pop();
         } else if (itemStack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof NetheriteShulkerBoxBlock block) {

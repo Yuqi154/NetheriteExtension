@@ -6,6 +6,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -34,10 +35,10 @@ public class NetheriteFishingRodItem extends FishingRodItem {
             world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_FISHING_BOBBER_RETRIEVE, SoundCategory.NEUTRAL, 1.0F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
         } else {
             world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_FISHING_BOBBER_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
-            if (!world.isClient) {
-                int lureLevel = EnchantmentHelper.getLure(itemStack);
-                int luckOfTheSeaLevel = EnchantmentHelper.getLuckOfTheSea(itemStack);
-                world.spawnEntity(new NetheriteFishingBobberEntity(user, world, luckOfTheSeaLevel, lureLevel));
+            if (world instanceof ServerWorld serverWorld) {
+                int timeReduction = (int) (EnchantmentHelper.getFishingTimeReduction(serverWorld, itemStack, user) * 20);
+                int luckOfTheSeaLevel = EnchantmentHelper.getFishingLuckBonus(serverWorld, itemStack, user);
+                world.spawnEntity(new NetheriteFishingBobberEntity(user, world, luckOfTheSeaLevel, timeReduction));
             }
             user.incrementStat(Stats.USED.getOrCreateStat(this));
         }

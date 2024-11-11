@@ -37,9 +37,9 @@ public class NetheriteTridentItem extends TridentItem {
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if (user instanceof PlayerEntity playerEntity) {
-            int i = this.getMaxUseTime(stack) - remainingUseTicks;
+            int i = this.getMaxUseTime(stack, user) - remainingUseTicks;
             if (i >= 10) {
-                int riptideLevel = EnchantmentHelper.getRiptide(stack);
+                float riptideLevel = EnchantmentHelper.getTridentSpinAttackStrength(stack, user);
                 if (riptideLevel <= 0 || playerEntity.isTouchingWaterOrRain() || playerEntity.isInLava()) {
                     if (!world.isClient) {
                         stack.damage(1, playerEntity, EquipmentSlot.MAINHAND);
@@ -50,7 +50,7 @@ public class NetheriteTridentItem extends TridentItem {
                                 tridentEntity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
 
                             world.spawnEntity(tridentEntity);
-                            world.playSoundFromEntity(null, tridentEntity, SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                            world.playSoundFromEntity(null, tridentEntity, SoundEvents.ITEM_TRIDENT_THROW.value(), SoundCategory.PLAYERS, 1.0F, 1.0F);
                             if (!playerEntity.getAbilities().creativeMode)
                                 playerEntity.getInventory().removeOne(stack);
                         } else
@@ -69,16 +69,16 @@ public class NetheriteTridentItem extends TridentItem {
                         k *= n / m;
                         l *= n / m;
                         playerEntity.addVelocity(h, k, l);
-                        playerEntity.useRiptide(20);
+                        playerEntity.useRiptide(20, 8.0F, stack);
                         if (playerEntity.isOnGround()) {
                             float o = 1.1999999F;
                             playerEntity.move(MovementType.SELF, new Vec3d(0.0D, o, 0.0D));
                         }
 
                         SoundEvent soundEvent3;
-                        if (riptideLevel >= 3) soundEvent3 = SoundEvents.ITEM_TRIDENT_RIPTIDE_3;
-                        else if (riptideLevel == 2) soundEvent3 = SoundEvents.ITEM_TRIDENT_RIPTIDE_2;
-                        else soundEvent3 = SoundEvents.ITEM_TRIDENT_RIPTIDE_1;
+                        if (riptideLevel >= 3) soundEvent3 = SoundEvents.ITEM_TRIDENT_RIPTIDE_3.value();
+                        else if (riptideLevel == 2) soundEvent3 = SoundEvents.ITEM_TRIDENT_RIPTIDE_2.value();
+                        else soundEvent3 = SoundEvents.ITEM_TRIDENT_RIPTIDE_1.value();
                         world.playSoundFromEntity(null, playerEntity, soundEvent3, SoundCategory.PLAYERS, 1.0F, 1.0F);
                     }
                 }
@@ -91,7 +91,7 @@ public class NetheriteTridentItem extends TridentItem {
         ItemStack itemStack = user.getStackInHand(hand);
         if (itemStack.getDamage() >= itemStack.getMaxDamage() - 1)
             return TypedActionResult.fail(itemStack);
-        else if (EnchantmentHelper.getRiptide(itemStack) > 0 && !(user.isTouchingWaterOrRain() || user.isInLava()))
+        else if (EnchantmentHelper.getTridentSpinAttackStrength(itemStack, user) > 0 && !(user.isTouchingWaterOrRain() || user.isInLava()))
             return TypedActionResult.fail(itemStack);
         else {
             user.setCurrentHand(hand);

@@ -40,7 +40,7 @@ public class NetheriteBeaconScreen extends HandledScreen<NetheriteBeaconScreenHa
             {StatusEffects.REGENERATION},
             {StatusEffects.GLOWING}
     };
-    private static final Identifier TEXTURE = new Identifier(NetheriteExtension.MOD_ID, "textures/gui/container/netherite_beacon.png");
+    private static final Identifier TEXTURE = Identifier.of(NetheriteExtension.MOD_ID, "textures/gui/container/netherite_beacon.png");
     private static final Text PRIMARY_TEXT = Text.translatable("block.minecraft.beacon.primary");
     private static final Text SECONDARY_TEXT = Text.translatable("block.minecraft.beacon.secondary");
     private static final Text TERTIARY_TEXT = Text.translatable("block.netherite_ext.netherite_beacon.tertiary");

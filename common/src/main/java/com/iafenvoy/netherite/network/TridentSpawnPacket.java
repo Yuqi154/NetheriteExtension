@@ -9,7 +9,7 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 
 public record TridentSpawnPacket(int id) implements CustomPayload {
-    public static final Id<TridentSpawnPacket> ID = new Id<>(new Identifier(NetheriteExtension.MOD_ID, "trident_spawn"));
+    public static final Id<TridentSpawnPacket> ID = new Id<>(Identifier.of(NetheriteExtension.MOD_ID, "trident_spawn"));
     public static final PacketCodec<RegistryByteBuf, TridentSpawnPacket> CODEC = PacketCodec.tuple(PacketCodecs.codec(Codec.INT), TridentSpawnPacket::id, TridentSpawnPacket::new);
 
     @Override

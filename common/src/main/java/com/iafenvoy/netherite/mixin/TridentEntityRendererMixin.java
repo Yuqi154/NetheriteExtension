@@ -15,6 +15,6 @@ public class TridentEntityRendererMixin {
     @Inject(method = "getTexture(Lnet/minecraft/entity/projectile/TridentEntity;)Lnet/minecraft/util/Identifier;", at = @At(value = "HEAD"), cancellable = true)
     public void getTextureMixin(TridentEntity entity, CallbackInfoReturnable<Identifier> cir) {
         if (entity.stack.isOf(NetheriteItems.NETHERITE_TRIDENT.get()))
-            cir.setReturnValue(new Identifier(NetheriteExtension.MOD_ID, "textures/entity/netherite_trident.png"));
+            cir.setReturnValue(Identifier.of(NetheriteExtension.MOD_ID, "textures/entity/netherite_trident.png"));
     }
 }

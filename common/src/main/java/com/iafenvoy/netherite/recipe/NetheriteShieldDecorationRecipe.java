@@ -9,6 +9,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 
@@ -18,11 +19,11 @@ public class NetheriteShieldDecorationRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack craft(RecipeInputInventory craftingInventory, RegistryWrapper.WrapperLookup registryManager) {
+    public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup registryManager) {
         ItemStack itemStack = ItemStack.EMPTY;
         ItemStack itemStack2 = ItemStack.EMPTY;
-        for (int i = 0; i < craftingInventory.size(); ++i) {
-            ItemStack craftingStack = craftingInventory.getStack(i);
+        for (int i = 0; i < input.getStacks().size(); ++i) {
+            ItemStack craftingStack = input.getStackInSlot(i);
             if (!craftingStack.isEmpty())
                 if (craftingStack.getItem() instanceof BannerItem)
                     itemStack = craftingStack;
@@ -46,11 +47,11 @@ public class NetheriteShieldDecorationRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public boolean matches(RecipeInputInventory craftingInventory, World world) {
+    public boolean matches(CraftingRecipeInput input, World world) {
         ItemStack itemStack = ItemStack.EMPTY;
         ItemStack itemStack2 = ItemStack.EMPTY;
-        for (int i = 0; i < craftingInventory.size(); ++i) {
-            ItemStack itemStack3 = craftingInventory.getStack(i);
+        for (int i = 0; i < input.getStacks().size(); ++i) {
+            ItemStack itemStack3 = input.getStackInSlot(i);
             if (!itemStack3.isEmpty())
                 if (itemStack3.getItem() instanceof BannerItem) {
                     if (!itemStack2.isEmpty()) return false;

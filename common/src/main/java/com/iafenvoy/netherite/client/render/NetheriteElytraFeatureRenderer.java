@@ -8,7 +8,6 @@ import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.PlayerModelPart;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.ElytraEntityModel;
@@ -20,12 +19,13 @@ import net.minecraft.client.util.SkinTextures;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerModelPart;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class NetheriteElytraFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
-    public static final Identifier NETHERITE_ELYTRA_SKIN = new Identifier(NetheriteExtension.MOD_ID, "textures/entity/netherite_elytra.png");
+    public static final Identifier NETHERITE_ELYTRA_SKIN = Identifier.of(NetheriteExtension.MOD_ID, "textures/entity/netherite_elytra.png");
     private final ElytraEntityModel<T> elytra;
 
     public NetheriteElytraFeatureRenderer(FeatureRendererContext<T, M> featureRendererContext, EntityModelLoader entityModelLoader) {
@@ -42,7 +42,7 @@ public class NetheriteElytraFeatureRenderer<T extends LivingEntity, M extends En
                 SkinTextures skinTextures = abstractClientPlayerEntity.getSkinTextures();
                 if (skinTextures.elytraTexture() != null)
                     identifier4 = skinTextures.elytraTexture();
-                else if (skinTextures.capeTexture() != null && abstractClientPlayerEntity.isPartVisible(PlayerModelPart.CAPE))
+                else if (skinTextures.capeTexture() != null && abstractClientPlayerEntity.isPartVisible(PlayerModelPart.CAPE.CAPE))
                     identifier4 = skinTextures.capeTexture();
                 else identifier4 = NETHERITE_ELYTRA_SKIN;
             } else identifier4 = NETHERITE_ELYTRA_SKIN;
@@ -52,7 +52,7 @@ public class NetheriteElytraFeatureRenderer<T extends LivingEntity, M extends En
             this.getContextModel().copyStateTo(this.elytra);
             this.elytra.setAngles(livingEntity, f, g, j, k, l);
             VertexConsumer vertexConsumer = ItemRenderer.getDirectItemGlintConsumer(vertexConsumerProvider, this.elytra.getLayer(identifier4), false, itemStack.hasGlint());
-            this.elytra.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.elytra.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, -1);
             matrixStack.pop();
         }
     }

@@ -6,6 +6,7 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,7 +24,7 @@ public abstract class ItemRendererMixin {
     @ModifyVariable(method = "getModel", at = @At(value = "STORE", target = "Lnet/minecraft/client/render/item/ItemModels;getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;", ordinal = 2))
     public BakedModel getHeldNetheriteTridentModel(BakedModel value, ItemStack stack) {
         if (stack.isOf(NetheriteItems.NETHERITE_TRIDENT.get()))
-            return this.models.getModelManager().getModel(new ModelIdentifier(MOD_ID, "netherite_trident_in_hand", "inventory"));
+            return this.models.getModelManager().getModel(new ModelIdentifier(Identifier.of(MOD_ID, "netherite_trident_in_hand"), "inventory"));
         return value;
     }
 }

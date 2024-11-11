@@ -6,6 +6,7 @@ import com.iafenvoy.netherite.registry.NetheriteBlocks;
 import com.iafenvoy.netherite.registry.NetheriteCriteria;
 import com.iafenvoy.netherite.registry.NetheriteStatusEffects;
 import com.iafenvoy.netherite.screen.NetheriteBeaconScreenHandler;
+import com.iafenvoy.netherite.util.ColorUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -133,7 +134,7 @@ public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScre
             BlockState blockState = world.getBlockState(blockPos2);
             Block block = blockState.getBlock();
             if (block instanceof Stainable) {
-                float[] fs = ((Stainable) block).getColor().getColorComponents();
+                float[] fs = ColorUtil.toFloat(((Stainable) block).getColor().getEntityColor());
                 if (blockEntity.beamSegmentsToCheck.size() <= 1) {
                     beamSegment = new BeamSegment(fs);
                     blockEntity.beamSegmentsToCheck.add(beamSegment);

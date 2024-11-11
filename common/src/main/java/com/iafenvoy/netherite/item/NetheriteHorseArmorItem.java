@@ -12,6 +12,6 @@ public class NetheriteHorseArmorItem extends AnimalArmorItem {
 
     @Override
     public Identifier getEntityTexture() {
-        return new Identifier(NetheriteExtension.MOD_ID, "textures/entity/netherite_horse_armor.png");
+        return Identifier.of(NetheriteExtension.MOD_ID, "textures/entity/netherite_horse_armor.png");
     }
 }

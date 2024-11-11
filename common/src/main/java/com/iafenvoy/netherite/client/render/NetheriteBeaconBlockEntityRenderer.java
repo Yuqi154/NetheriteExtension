@@ -20,7 +20,7 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class NetheriteBeaconBlockEntityRenderer implements BlockEntityRenderer<NetheriteBeaconBlockEntity> {
-    public static final Identifier BEAM_TEXTURE = new Identifier("textures/entity/beacon_beam.png");
+    public static final Identifier BEAM_TEXTURE = Identifier.of("textures/entity/beacon_beam.png");
 
     public NetheriteBeaconBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
     }
@@ -76,7 +76,7 @@ public class NetheriteBeaconBlockEntityRenderer implements BlockEntityRenderer<N
     }
 
     private static void renderBeamVertex(MatrixStack.Entry entry, Matrix4f matrix4f, VertexConsumer vertexConsumer, float f, float g, float h, float i, int j, float k, float l, float u, float v) {
-        vertexConsumer.vertex(matrix4f, k, j, l).color(f, g, h, i).texture(u, v).overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(entry, 0.0F, 1.0F, 0.0F).next();
+        vertexConsumer.vertex(matrix4f, k, j, l).color(f, g, h, i).texture(u, v).overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(entry, 0.0F, 1.0F, 0.0F);
     }
 
     @Override

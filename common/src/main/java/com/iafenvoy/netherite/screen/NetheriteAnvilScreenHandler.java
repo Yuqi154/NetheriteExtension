@@ -3,7 +3,6 @@ package com.iafenvoy.netherite.screen;
 import com.iafenvoy.netherite.config.NetheriteExtensionConfig;
 import com.iafenvoy.netherite.registry.NetheriteBlocks;
 import com.iafenvoy.netherite.registry.NetheriteScreenHandlers;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
@@ -154,17 +153,16 @@ public class NetheriteAnvilScreenHandler extends ForgingScreenHandler {
                     ItemEnchantmentsComponent itemEnchantmentsComponent = EnchantmentHelper.getEnchantments(itemStack3);
                     boolean bl2 = false;
                     boolean bl3 = false;
-                    for (Object2IntMap.Entry<RegistryEntry<Enchantment>> registryEntryEntry : itemEnchantmentsComponent.getEnchantmentsMap()) {
-                        RegistryEntry<Enchantment> registryEntry = registryEntryEntry.getKey();
+                    for (RegistryEntry<Enchantment> registryEntry : itemEnchantmentsComponent.getEnchantments()) {
                         Enchantment enchantment = registryEntry.value();
-                        int q = builder.getLevel(enchantment);
-                        int r = registryEntryEntry.getIntValue();
+                        int q = builder.getLevel(registryEntry);
+                        int r = itemEnchantmentsComponent.getLevel(registryEntry);
                         r = q == r ? r + 1 : Math.max(r, q);
                         boolean bl4 = enchantment.isAcceptableItem(itemStack);
                         if (this.player.getAbilities().creativeMode || itemStack.isOf(Items.ENCHANTED_BOOK))
                             bl4 = true;
                         for (RegistryEntry<Enchantment> enchantmentRegistryEntry : builder.getEnchantments())
-                            if (!enchantmentRegistryEntry.equals(registryEntry) && !enchantment.canCombine(enchantmentRegistryEntry.value())) {
+                            if (!enchantmentRegistryEntry.equals(registryEntry) && !Enchantment.canBeCombined(enchantmentRegistryEntry, registryEntry)) {
                                 bl4 = false;
                                 ++i;
                             }
@@ -172,7 +170,7 @@ public class NetheriteAnvilScreenHandler extends ForgingScreenHandler {
                         else {
                             bl2 = true;
                             if (r > enchantment.getMaxLevel()) r = enchantment.getMaxLevel();
-                            builder.set(enchantment, r);
+                            builder.set(registryEntry, r);
                             int s = enchantment.getAnvilCost();
                             if (bl) s = Math.max(1, s / 2);
                             i += s * r;

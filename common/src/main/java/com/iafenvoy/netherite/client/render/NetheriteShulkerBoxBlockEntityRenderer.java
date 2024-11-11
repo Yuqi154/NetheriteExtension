@@ -47,8 +47,8 @@ public class NetheriteShulkerBoxBlockEntityRenderer implements BlockEntityRender
         ModelPart modelPart = this.model.getLid();
         modelPart.setPivot(0.0F, 24.0F - shulkerBoxBlockEntity.getAnimationProgress(f) * 0.5F * 16.0F, 0.0F);
         modelPart.yaw = 270.0F * shulkerBoxBlockEntity.getAnimationProgress(f) * (float) (Math.PI / 180.0);
-        VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(new Identifier(NetheriteExtension.MOD_ID, "textures/entity/netherite_shulker/netherite_shulker" + (dyeColor == null ? "" : "_" + dyeColor.getName()) + ".png")));
-        this.model.render(matrixStack, vertexConsumer, i, j, 1.0F, 1.0F, 1.0F, 1.0F);
+        VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(Identifier.of(NetheriteExtension.MOD_ID, "textures/entity/netherite_shulker/netherite_shulker" + (dyeColor == null ? "" : "_" + dyeColor.getName()) + ".png")));
+        this.model.render(matrixStack, vertexConsumer, i, j, -1);
         matrixStack.pop();
     }
 }

@@ -34,8 +34,8 @@ import java.util.List;
 import static com.iafenvoy.netherite.registry.NetheriteLoots.LAVA_FISHING_LOOT_TABLE;
 
 public class NetheriteFishingBobberEntity extends FishingBobberEntity {
-    public NetheriteFishingBobberEntity(PlayerEntity thrower, World world, int lureLevel, int luckOfTheSeaLevel) {
-        super(thrower, world, lureLevel, luckOfTheSeaLevel);
+    public NetheriteFishingBobberEntity(PlayerEntity thrower, World world, int lureLevel, int timeReduction) {
+        super(thrower, world, lureLevel, timeReduction);
     }
 
     private void checkForCollision() {
@@ -269,7 +269,7 @@ public class NetheriteFishingBobberEntity extends FishingBobberEntity {
                 }
             } else {
                 this.waitCountdown = MathHelper.nextInt(this.random, 100, 600);
-                this.waitCountdown -= this.lureLevel * 20 * 5;
+                this.waitCountdown -= this.waitTimeReductionTicks;
             }
         }
 
@@ -294,7 +294,7 @@ public class NetheriteFishingBobberEntity extends FishingBobberEntity {
                         .add(LootContextParameters.ORIGIN, this.getPos())
                         .add(LootContextParameters.TOOL, usedItem)
                         .add(LootContextParameters.THIS_ENTITY, this)
-                        .luck((float) this.luckOfTheSeaLevel + playerEntity.getLuck())
+                        .luck((float) this.luckBonus + playerEntity.getLuck())
                         .build(LootContextTypes.FISHING);
                 LootTable lootTable = this.getWorld().getServer().getReloadableRegistries().getLootTable(RegistryKey.of(RegistryKeys.LOOT_TABLE, LAVA_FISHING_LOOT_TABLE));
                 List<ItemStack> list = lootTable.generateLoot(lootContextParameterSet);

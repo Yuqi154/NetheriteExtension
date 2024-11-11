@@ -10,6 +10,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 
@@ -20,11 +21,11 @@ public class NetheriteShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
 
 
     @Override
-    public ItemStack craft(RecipeInputInventory craftingInventory, RegistryWrapper.WrapperLookup lookup) {
+    public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack itemStack = ItemStack.EMPTY;
         DyeItem dyeItem = (DyeItem) Items.WHITE_DYE;
-        for (int i = 0; i < craftingInventory.size(); ++i) {
-            ItemStack itemStack2 = craftingInventory.getStack(i);
+        for (int i = 0; i < input.getStacks().size(); ++i) {
+            ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 Item item = itemStack2.getItem();
                 if (Block.getBlockFromItem(item) instanceof NetheriteShulkerBoxBlock)
@@ -48,11 +49,11 @@ public class NetheriteShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public boolean matches(RecipeInputInventory craftingInventory, World world) {
+    public boolean matches(CraftingRecipeInput input, World world) {
         int i = 0;
         int j = 0;
-        for (int k = 0; k < craftingInventory.size(); ++k) {
-            ItemStack itemStack = craftingInventory.getStack(k);
+        for (int k = 0; k < input.getStacks().size(); ++k) {
+            ItemStack itemStack = input.getStackInSlot(k);
             if (!itemStack.isEmpty()) {
                 if (Block.getBlockFromItem(itemStack.getItem()) instanceof NetheriteShulkerBoxBlock)
                     ++i;
