@@ -17,6 +17,8 @@ import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -294,7 +296,7 @@ public class NetheriteFishingBobberEntity extends FishingBobberEntity {
                         .add(LootContextParameters.THIS_ENTITY, this)
                         .luck((float) this.luckOfTheSeaLevel + playerEntity.getLuck())
                         .build(LootContextTypes.FISHING);
-                LootTable lootTable = this.getWorld().getServer().getLootManager().getLootTable(LAVA_FISHING_LOOT_TABLE);
+                LootTable lootTable = this.getWorld().getServer().getReloadableRegistries().getLootTable(RegistryKey.of(RegistryKeys.LOOT_TABLE, LAVA_FISHING_LOOT_TABLE));
                 List<ItemStack> list = lootTable.generateLoot(lootContextParameterSet);
                 Criteria.FISHING_ROD_HOOKED.trigger((ServerPlayerEntity) playerEntity, usedItem, this, list);
 

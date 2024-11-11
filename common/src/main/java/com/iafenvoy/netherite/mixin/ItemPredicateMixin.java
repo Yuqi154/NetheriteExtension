@@ -20,14 +20,10 @@ public class ItemPredicateMixin {
     @Final
     private Optional<RegistryEntryList<Item>> items;
 
-    @ModifyVariable(method = "test", at = @At("HEAD"), argsOnly = true)
+    @ModifyVariable(method = "test(Lnet/minecraft/item/ItemStack;)Z", at = @At("HEAD"), argsOnly = true)
     public ItemStack letNetheriteShearsCountAsShears(ItemStack stack) {
-        if (this.items.isPresent() && this.items.get().contains(Items.SHEARS.getRegistryEntry()) && stack.isOf(NetheriteItems.NETHERITE_SHEARS.get())) {
-            ItemStack itemStack = new ItemStack(Items.SHEARS);
-            itemStack.setCount(stack.getCount());
-            itemStack.setNbt(stack.getOrCreateNbt());
-            return itemStack;
-        }
+        if (this.items.isPresent() && this.items.get().contains(Items.SHEARS.getRegistryEntry()) && stack.isOf(NetheriteItems.NETHERITE_SHEARS.get()))
+            return stack.copyComponentsToNewStack(Items.SHEARS, stack.getCount());
         return stack;
     }
 }

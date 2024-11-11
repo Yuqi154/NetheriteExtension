@@ -5,11 +5,12 @@ import com.iafenvoy.netherite.NetheriteExtensionClient;
 import dev.architectury.platform.Platform;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @Mod(NetheriteExtension.MOD_ID)
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public final class NetheriteExtensionNeoForge {
     public NetheriteExtensionNeoForge() {
         NetheriteExtension.init();

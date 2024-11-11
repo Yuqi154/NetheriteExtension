@@ -1,5 +1,7 @@
 package com.iafenvoy.netherite.recipe;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.BannerItem;
 import net.minecraft.item.ItemStack;
@@ -7,7 +9,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 
 public class NetheriteShieldDecorationRecipe extends SpecialCraftingRecipe {
@@ -16,7 +18,7 @@ public class NetheriteShieldDecorationRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack craft(RecipeInputInventory craftingInventory, DynamicRegistryManager registryManager) {
+    public ItemStack craft(RecipeInputInventory craftingInventory, RegistryWrapper.WrapperLookup registryManager) {
         ItemStack itemStack = ItemStack.EMPTY;
         ItemStack itemStack2 = ItemStack.EMPTY;
         for (int i = 0; i < craftingInventory.size(); ++i) {
@@ -26,10 +28,10 @@ public class NetheriteShieldDecorationRecipe extends SpecialCraftingRecipe {
                     itemStack = craftingStack;
         }
         if (itemStack2.isEmpty()) return itemStack2;
-        NbtCompound compoundTag = itemStack.getSubNbt("BlockEntityTag");
-        NbtCompound compoundTag2 = compoundTag == null ? new NbtCompound() : compoundTag.copy();
+        NbtComponent compoundTag = itemStack.get(DataComponentTypes.BLOCK_ENTITY_DATA);
+        NbtCompound compoundTag2 = compoundTag == null ? new NbtCompound() : compoundTag.copyNbt();
         compoundTag2.putInt("Base", ((BannerItem) itemStack.getItem()).getColor().getId());
-        itemStack2.setSubNbt("BlockEntityTag", compoundTag2);
+        itemStack2.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(compoundTag2));
         return itemStack2;
     }
 
@@ -55,7 +57,7 @@ public class NetheriteShieldDecorationRecipe extends SpecialCraftingRecipe {
                     itemStack2 = itemStack3;
                 } else {
                     if (!itemStack.isEmpty()) return false;
-                    if (itemStack3.getSubNbt("BlockEntityTag") != null) return false;
+                    if (itemStack3.contains(DataComponentTypes.BLOCK_ENTITY_DATA)) return false;
                     itemStack = itemStack3;
                 }
         }

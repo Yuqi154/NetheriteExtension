@@ -37,7 +37,7 @@ public class NetheriteTridentEntity extends TridentEntity {
         Entity entity = entityHitResult.getEntity();
         float f = 8.0F;
         if (entity instanceof LivingEntity livingEntity)
-            f += EnchantmentHelper.getAttackDamage(this.stack, livingEntity.getGroup());
+            f += EnchantmentHelper.getAttackDamage(this.stack, livingEntity.getType());
         f = (float) (f * NetheriteExtensionConfig.INSTANCE.damage.trident_damage_multiplier + NetheriteExtensionConfig.INSTANCE.damage.trident_damage_addition);
 
         Entity entity2 = this.getOwner();

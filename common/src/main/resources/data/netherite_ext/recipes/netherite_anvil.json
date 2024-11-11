@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "item": "netherite_ext:netherite_anvil"
+    "id": "netherite_ext:netherite_anvil"
   },
   "type": "minecraft:crafting_shaped"
 }

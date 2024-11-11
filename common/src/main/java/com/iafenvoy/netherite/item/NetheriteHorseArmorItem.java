@@ -1,12 +1,13 @@
 package com.iafenvoy.netherite.item;
 
 import com.iafenvoy.netherite.NetheriteExtension;
-import net.minecraft.item.HorseArmorItem;
+import net.minecraft.item.AnimalArmorItem;
+import net.minecraft.item.ArmorMaterials;
 import net.minecraft.util.Identifier;
 
-public class NetheriteHorseArmorItem extends HorseArmorItem {
-    public NetheriteHorseArmorItem(int bonus, Settings settings) {
-        super(bonus, "diamond", settings);
+public class NetheriteHorseArmorItem extends AnimalArmorItem {
+    public NetheriteHorseArmorItem(Settings settings) {
+        super(ArmorMaterials.NETHERITE, AnimalArmorItem.Type.EQUESTRIAN, false, settings);
     }
 
     @Override

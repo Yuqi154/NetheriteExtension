@@ -7,6 +7,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.ForgingScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -74,7 +75,7 @@ public class NetheriteAnvilScreen extends ForgingScreen<NetheriteAnvilScreenHand
         if (!name.isEmpty()) {
             String s = name;
             Slot slot = this.handler.getSlot(0);
-            if (slot != null && slot.hasStack() && !slot.getStack().hasCustomName() && name.equals(slot.getStack().getName().getString()))
+            if (slot != null && slot.hasStack() && !slot.getStack().contains(DataComponentTypes.CUSTOM_NAME) && name.equals(slot.getStack().getName().getString()))
                 s = "";
             this.handler.setNewItemName(s);
             assert this.client != null && this.client.player != null;

@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 public final class NetheriteRecipeSerializers {
     public static final DeferredRegister<RecipeSerializer<?>> REGISTRY = DeferredRegister.create(NetheriteExtension.MOD_ID, RegistryKeys.RECIPE_SERIALIZER);
 
-    public static final RegistrySupplier<SpecialRecipeSerializer<NetheriteShulkerBoxColoringRecipe>> NETHERITE_SHULKER_BOX = register("crafting_special_netheriteshulkerboxcoloring", () -> new SpecialRecipeSerializer<>(NetheriteShulkerBoxColoringRecipe::new));
+    public static final RegistrySupplier<SpecialRecipeSerializer<NetheriteShulkerBoxColoringRecipe>> NETHERITE_SHULKER_BOX = register("crafting_special_netherite_shulker_box_coloring", () -> new SpecialRecipeSerializer<>(NetheriteShulkerBoxColoringRecipe::new));
     public static final RegistrySupplier<SpecialRecipeSerializer<NetheriteShieldDecorationRecipe>> NETHERITE_SHIELD = register("crafting_special_netheriteshielddecoration", () -> new SpecialRecipeSerializer<>(NetheriteShieldDecorationRecipe::new));
 
     public static <S extends RecipeSerializer<T>, T extends Recipe<?>> RegistrySupplier<S> register(String id, Supplier<S> serializer) {

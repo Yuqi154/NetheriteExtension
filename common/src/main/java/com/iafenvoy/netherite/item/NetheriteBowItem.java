@@ -3,6 +3,7 @@ package com.iafenvoy.netherite.item;
 import com.iafenvoy.netherite.config.NetheriteExtensionConfig;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -44,7 +45,7 @@ public class NetheriteBowItem extends BowItem {
                         if (k > 0) persistentProjectileEntity.setPunch(k);
                         if (EnchantmentHelper.getLevel(Enchantments.FLAME, stack) > 0)
                             persistentProjectileEntity.setOnFireFor(100);
-                        stack.damage(1, playerEntity, (p) -> p.sendToolBreakStatus(playerEntity.getActiveHand()));
+                        stack.damage(1, playerEntity, EquipmentSlot.MAINHAND);
                         if (bl2 || playerEntity.getAbilities().creativeMode && (itemStack.isOf(Items.SPECTRAL_ARROW) || itemStack.isOf(Items.TIPPED_ARROW)))
                             persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
                         world.spawnEntity(persistentProjectileEntity);

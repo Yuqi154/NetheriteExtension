@@ -19,7 +19,7 @@ public class ServerPlayNetworkHandlerMixin {
     @Inject(method = "onRenameItem", at = @At("RETURN"))
     public void onRenameItem(RenameItemC2SPacket packet, CallbackInfo info) {
         if (((ServerPlayNetworkHandler) (Object) this).player.currentScreenHandler instanceof NetheriteAnvilScreenHandler anvilScreenHandler) {
-            String string = SharedConstants.stripInvalidChars(packet.getName());
+            String string = packet.getName();
             if (string.length() <= 35)
                 anvilScreenHandler.setNewItemName(string);
         }

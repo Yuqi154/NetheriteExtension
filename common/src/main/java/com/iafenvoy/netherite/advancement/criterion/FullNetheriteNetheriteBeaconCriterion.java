@@ -19,7 +19,7 @@ public class FullNetheriteNetheriteBeaconCriterion extends AbstractCriterion<Ful
     @Override
     public Codec<Conditions> getConditionsCodec() {
         return RecordCodecBuilder.create(i -> i.group(
-                LootContextPredicate.CODEC.optionalFieldOf("player", null).forGetter(Conditions::getPlayer),
+                LootContextPredicate.CODEC.optionalFieldOf("player", LootContextPredicate.create()).forGetter(Conditions::getPlayer),
                 NumberRange.IntRange.CODEC.fieldOf("netherite_level").forGetter(Conditions::getNetheriteLevel)
         ).apply(i, Conditions::new));
     }

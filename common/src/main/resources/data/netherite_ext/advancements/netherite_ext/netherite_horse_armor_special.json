@@ -2,7 +2,7 @@
   "parent": "netherite_ext:netherite_ext/netherite_horse_armor",
   "display": {
     "icon": {
-      "item": "netherite_ext:netherite_horse_armor"
+      "id": "netherite_ext:netherite_horse_armor"
     },
     "title": {
       "translate": "advancements.netherite_ext.netherite_horse_armor_special.title"

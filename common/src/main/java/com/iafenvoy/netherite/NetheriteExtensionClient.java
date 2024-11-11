@@ -1,11 +1,11 @@
 package com.iafenvoy.netherite;
 
+import com.iafenvoy.netherite.network.TridentSpawnPacket;
 import com.iafenvoy.netherite.registry.NetheriteRenderers;
 import com.iafenvoy.netherite.registry.NetheriteScreenHandlers;
 import dev.architectury.networking.NetworkManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.util.Identifier;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -23,6 +23,6 @@ public class NetheriteExtensionClient {
         NetheriteRenderers.registerBlockEntityRenderers();
         NetheriteRenderers.registerRenderTypes();
         NetheriteScreenHandlers.initializeClient();
-        NetworkManager.registerReceiver(NetworkManager.Side.S2C, new Identifier(NetheriteExtension.MOD_ID, "netherite_trident"), (buf, ctx) -> TRIDENT_QUEUE.add(buf.readInt()));
+        NetworkManager.registerReceiver(NetworkManager.Side.S2C, TridentSpawnPacket.ID, TridentSpawnPacket.CODEC, (payload, ctx) -> TRIDENT_QUEUE.add(payload.id()));
     }
 }

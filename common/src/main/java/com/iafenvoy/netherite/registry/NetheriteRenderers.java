@@ -14,6 +14,7 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.ShieldEntityModel;
 import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ElytraItem;
@@ -79,7 +80,7 @@ public final class NetheriteRenderers {
         ItemPropertiesRegistry.register(NETHERITE_CROSSBOW.get(), new Identifier("pull"), (itemStack, clientWorld, livingEntity, i) -> livingEntity == null ? 0.0F : CrossbowItem.isCharged(itemStack) ? 0.0F : (float) (itemStack.getMaxUseTime() - livingEntity.getItemUseTimeLeft()) / (float) CrossbowItem.getPullTime(itemStack));
         ItemPropertiesRegistry.register(NETHERITE_CROSSBOW.get(), new Identifier("pulling"), (itemStack, clientWorld, livingEntity, i) -> livingEntity == null ? 0.0F : livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack && !CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F);
         ItemPropertiesRegistry.register(NETHERITE_CROSSBOW.get(), new Identifier("charged"), (itemStack, clientWorld, livingEntity, i) -> livingEntity == null ? 0.0F : CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F);
-        ItemPropertiesRegistry.register(NETHERITE_CROSSBOW.get(), new Identifier("firework"), (itemStack, clientWorld, livingEntity, i) -> livingEntity == null ? 0.0F : CrossbowItem.isCharged(itemStack) && CrossbowItem.hasProjectile(itemStack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);
+        ItemPropertiesRegistry.register(NETHERITE_CROSSBOW.get(), new Identifier("firework"), (itemStack, clientWorld, livingEntity, i) -> livingEntity == null ? 0.0F : CrossbowItem.isCharged(itemStack) && itemStack.get(DataComponentTypes.CHARGED_PROJECTILES).contains(Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);
         ItemPropertiesRegistry.register(NETHERITE_TRIDENT.get(), new Identifier("throwing"), (itemStack, clientWorld, livingEntity, i) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F);
     }
 

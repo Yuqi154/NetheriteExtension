@@ -2,7 +2,7 @@
   "parent": "netherite_ext:netherite_ext/root",
   "display": {
     "icon": {
-      "item": "netherite_ext:netherite_bow"
+      "id": "netherite_ext:netherite_bow"
     },
     "title": {
       "translate": "advancements.netherite_ext.netherite_bow.title"

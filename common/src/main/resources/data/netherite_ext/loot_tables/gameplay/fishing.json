@@ -8,7 +8,7 @@
           "type": "minecraft:loot_table",
           "weight": 60,
           "quality": -2,
-          "name": "netherite_ext:gameplay/fishing/junk"
+          "value": "netherite_ext:gameplay/fishing/junk"
         },
         {
           "type": "minecraft:loot_table",
@@ -16,7 +16,8 @@
             {
               "condition": "minecraft:entity_properties",
               "predicate": {
-                "fishing_hook": {
+                "type_specific": {
+                  "type": "minecraft:fishing_hook",
                   "in_open_water": true
                 }
               },
@@ -25,7 +26,7 @@
           ],
           "weight": 40,
           "quality": 2,
-          "name": "netherite_ext:gameplay/fishing/treasure"
+          "value": "netherite_ext:gameplay/fishing/treasure"
         }
       ]
     }

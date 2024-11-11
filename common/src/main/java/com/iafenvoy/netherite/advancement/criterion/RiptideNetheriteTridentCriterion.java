@@ -9,14 +9,13 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import java.util.Optional;
 
 public class RiptideNetheriteTridentCriterion extends AbstractCriterion<RiptideNetheriteTridentCriterion.Conditions> {
-
     public void trigger(ServerPlayerEntity player) {
         this.trigger(player, (conditions) -> conditions.matches(player));
     }
 
     @Override
     public Codec<Conditions> getConditionsCodec() {
-        return RecordCodecBuilder.create(i -> i.group(LootContextPredicate.CODEC.optionalFieldOf("player", null).forGetter(Conditions::getPlayer)).apply(i, Conditions::new));
+        return RecordCodecBuilder.create(i -> i.group(LootContextPredicate.CODEC.optionalFieldOf("player", LootContextPredicate.create()).forGetter(Conditions::getPlayer)).apply(i, Conditions::new));
     }
 
     public static class Conditions implements AbstractCriterion.Conditions {

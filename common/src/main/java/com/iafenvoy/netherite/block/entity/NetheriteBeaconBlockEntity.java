@@ -23,6 +23,8 @@ import net.minecraft.inventory.ContainerLock;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
@@ -47,27 +49,27 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScreenHandlerFactory {
-    public static final StatusEffect[][] EFFECTS_BY_LEVEL = new StatusEffect[][]{{StatusEffects.SPEED, StatusEffects.HASTE}, {StatusEffects.RESISTANCE, StatusEffects.JUMP_BOOST}, {StatusEffects.STRENGTH}, {StatusEffects.REGENERATION}, {StatusEffects.GLOWING}};
-    private static final Set<StatusEffect> EFFECTS = Arrays.stream(EFFECTS_BY_LEVEL).flatMap(Arrays::stream).collect(Collectors.toSet());
+    public static final RegistryEntry<StatusEffect>[][] EFFECTS_BY_LEVEL = new RegistryEntry[][]{{StatusEffects.SPEED, StatusEffects.HASTE}, {StatusEffects.RESISTANCE, StatusEffects.JUMP_BOOST}, {StatusEffects.STRENGTH}, {StatusEffects.REGENERATION}, {StatusEffects.GLOWING}};
+    private static final Set<RegistryEntry<StatusEffect>> EFFECTS = Arrays.stream(EFFECTS_BY_LEVEL).flatMap(Arrays::stream).collect(Collectors.toSet());
     private List<BeamSegment> beamSegments = Lists.newArrayList();
     private List<BeamSegment> beamSegmentsToCheck = Lists.newArrayList();
     private int beaconLevel;
     private int netheriteLevel;
     private int minY = -1;
     @Nullable
-    private StatusEffect primary;
+    private RegistryEntry<StatusEffect> primary;
     @Nullable
-    private StatusEffect secondary;
+    private RegistryEntry<StatusEffect> secondary;
     @Nullable
-    private StatusEffect tertiary;
+    private RegistryEntry<StatusEffect> tertiary;
     private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
         @Override
         public int get(int index) {
             return switch (index) {
                 case 0 -> NetheriteBeaconBlockEntity.this.beaconLevel;
-                case 1 -> Registries.STATUS_EFFECT.getRawId(NetheriteBeaconBlockEntity.this.primary);
-                case 2 -> Registries.STATUS_EFFECT.getRawId(NetheriteBeaconBlockEntity.this.secondary);
-                case 3 -> Registries.STATUS_EFFECT.getRawId(NetheriteBeaconBlockEntity.this.tertiary);
+                case 1 -> Registries.STATUS_EFFECT.getRawId(NetheriteBeaconBlockEntity.this.primary.value());
+                case 2 -> Registries.STATUS_EFFECT.getRawId(NetheriteBeaconBlockEntity.this.secondary.value());
+                case 3 -> Registries.STATUS_EFFECT.getRawId(NetheriteBeaconBlockEntity.this.tertiary.value());
                 default -> 0;
             };
         }
@@ -106,8 +108,8 @@ public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScre
     }
 
     @Nullable
-    private static StatusEffect getPotionEffectById(int id) {
-        StatusEffect statusEffect = Registries.STATUS_EFFECT.get(id);
+    private static RegistryEntry<StatusEffect> getPotionEffectById(int id) {
+        RegistryEntry<StatusEffect> statusEffect = Registries.STATUS_EFFECT.getEntry(Registries.STATUS_EFFECT.get(id));
         return EFFECTS.contains(statusEffect) ? statusEffect : null;
     }
 
@@ -251,7 +253,7 @@ public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScre
             for (PlayerEntity player : list) {
                 player.addStatusEffect(new StatusEffectInstance(this.primary, effectLength, primaryEffectLevel, true, true));
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, effectLength, 0, true, true));
-                player.addStatusEffect(new StatusEffectInstance(NetheriteStatusEffects.LAVA_VISION.get(), effectLength, Math.min(this.netheriteLevel, 127), true, true));
+                player.addStatusEffect(new StatusEffectInstance(Registries.STATUS_EFFECT.getEntry(NetheriteStatusEffects.LAVA_VISION.get()), effectLength, Math.min(this.netheriteLevel, 127), true, true));
 
                 // regeneration case
                 if (this.beaconLevel >= 4 && this.primary != this.secondary && this.secondary != null)
@@ -281,32 +283,32 @@ public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScre
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        return this.createNbt();
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup lookup) {
+        return this.createNbt(lookup);
     }
 
     @Override
-    public void readNbt(NbtCompound tag) {
-        super.readNbt(tag);
+    public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup lookup) {
+        super.readNbt(tag, lookup);
         this.primary = getPotionEffectById(tag.getInt("Primary"));
         this.secondary = getPotionEffectById(tag.getInt("Secondary"));
         this.tertiary = getPotionEffectById(tag.getInt("Tertiary"));
         this.netheriteLevel = tag.getInt("NetheriteLevel");
         if (tag.contains("CustomName", 8))
-            this.customName = Text.Serialization.fromJson(tag.getString("CustomName"));
+            this.customName = Text.Serialization.fromJson(tag.getString("CustomName"), lookup);
         this.lock = ContainerLock.fromNbt(tag);
     }
 
     @Override
-    public void writeNbt(NbtCompound tag) {
-        super.writeNbt(tag);
-        tag.putInt("Primary", Registries.STATUS_EFFECT.getRawId(this.primary));
-        tag.putInt("Secondary", Registries.STATUS_EFFECT.getRawId(this.secondary));
-        tag.putInt("Tertiary", Registries.STATUS_EFFECT.getRawId(this.tertiary));
+    public void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup lookup) {
+        super.writeNbt(tag, lookup);
+        if (this.primary != null) tag.putInt("Primary", Registries.STATUS_EFFECT.getRawId(this.primary.value()));
+        if (this.secondary != null) tag.putInt("Secondary", Registries.STATUS_EFFECT.getRawId(this.secondary.value()));
+        if (this.tertiary != null) tag.putInt("Tertiary", Registries.STATUS_EFFECT.getRawId(this.tertiary.value()));
         tag.putInt("Levels", this.beaconLevel);
         tag.putInt("NetheriteLevel", this.netheriteLevel);
         if (this.customName != null)
-            tag.putString("CustomName", Text.Serialization.toJsonTree(this.customName).toString());
+            tag.putString("CustomName", Text.Serialization.toJsonString(this.customName, lookup));
         this.lock.writeNbt(tag);
     }
 

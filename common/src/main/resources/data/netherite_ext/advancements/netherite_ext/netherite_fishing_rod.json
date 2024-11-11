@@ -2,7 +2,7 @@
   "parent": "netherite_ext:netherite_ext/root",
   "display": {
     "icon": {
-      "item": "netherite_ext:netherite_fishing_rod"
+      "id": "netherite_ext:netherite_fishing_rod"
     },
     "title": {
       "translate": "advancements.netherite_ext.netherite_fishing_rod.title"

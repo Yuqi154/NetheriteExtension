@@ -10,7 +10,9 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.PiglinBrain;
@@ -98,7 +100,7 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
         if (entity.getAnimationStage() != AnimationStage.CLOSED)
             return true;
         else {
-            Box box = ShulkerEntity.calculateBoundingBox(state.get(FACING), 0.0F, 0.5F).offset(pos).contract(1.0E-6);
+            Box box = ShulkerEntity.calculateBoundingBox(0.0F, state.get(FACING), 0.5F).offset(pos).contract(1.0E-6);
             return world.isSpaceEmpty(box);
         }
     }
@@ -109,15 +111,16 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, BlockView world, List<Text> tooltip, TooltipContext options) {
-        super.appendTooltip(stack, world, tooltip, options);
-        NbtCompound compoundTag = stack.getSubNbt("BlockEntityTag");
-        if (compoundTag != null) {
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
+        super.appendTooltip(stack, context, tooltip, options);
+        NbtComponent component = stack.get(DataComponentTypes.BLOCK_ENTITY_DATA);
+        if (component != null) {
+            NbtCompound compoundTag = component.copyNbt();
             if (compoundTag.contains("LootTable", 8))
                 tooltip.add(Text.literal("???????"));
             if (compoundTag.contains("Items", 9)) {
                 DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(27, ItemStack.EMPTY);
-                Inventories.readNbt(compoundTag, defaultedList);
+                Inventories.readNbt(compoundTag, defaultedList, context.getRegistryLookup());
                 int i = 0;
                 int j = 0;
                 for (ItemStack itemStack : defaultedList)
@@ -177,9 +180,9 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
     public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
         ItemStack itemStack = super.getPickStack(world, pos, state);
         NetheriteShulkerBoxBlockEntity shulkerBoxBlockEntity = (NetheriteShulkerBoxBlockEntity) world.getBlockEntity(pos);
-        NbtCompound compoundTag = shulkerBoxBlockEntity.serializeInventory(new NbtCompound());
+        NbtCompound compoundTag = shulkerBoxBlockEntity.serializeInventory(new NbtCompound(), world.getRegistryManager());
         if (!compoundTag.isEmpty())
-            itemStack.setSubNbt("BlockEntityTag", compoundTag);
+            itemStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(compoundTag));
         return itemStack;
     }
 
@@ -214,11 +217,11 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
         if (blockEntity instanceof NetheriteShulkerBoxBlockEntity netheriteShulkerBoxBlockEntity) {
             if (!world.isClient && player.isCreative() && !netheriteShulkerBoxBlockEntity.isEmpty()) {
                 ItemStack itemStack = getItemStack(this.getColor());
-                NbtCompound compoundTag = netheriteShulkerBoxBlockEntity.serializeInventory(new NbtCompound());
+                NbtCompound compoundTag = netheriteShulkerBoxBlockEntity.serializeInventory(new NbtCompound(), world.getRegistryManager());
                 if (!compoundTag.isEmpty())
-                    itemStack.setSubNbt("BlockEntityTag", compoundTag);
+                    itemStack.set(DataComponentTypes.BLOCK_ENTITY_DATA, NbtComponent.of(compoundTag));
                 if (netheriteShulkerBoxBlockEntity.hasCustomName())
-                    itemStack.setCustomName(netheriteShulkerBoxBlockEntity.getCustomName());
+                    itemStack.set(DataComponentTypes.CUSTOM_NAME, netheriteShulkerBoxBlockEntity.getCustomName());
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, itemStack);
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);
@@ -231,10 +234,10 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        if (itemStack.hasCustomName()) {
+        if (itemStack.contains(DataComponentTypes.CUSTOM_NAME)) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof NetheriteShulkerBoxBlockEntity shulkerBoxBlock)
-                shulkerBoxBlock.setCustomName(itemStack.getName());
+                shulkerBoxBlock.setStackNbt(itemStack, world.getRegistryManager());
         }
     }
 
@@ -249,7 +252,7 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.isClient)
             return ActionResult.SUCCESS;
         else if (player.isSpectator())

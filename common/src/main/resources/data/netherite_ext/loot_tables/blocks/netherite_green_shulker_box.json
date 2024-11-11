@@ -9,39 +9,14 @@
           "name": "netherite_ext:netherite_green_shulker_box",
           "functions": [
             {
-              "function": "minecraft:copy_name",
+              "function": "minecraft:copy_components",
+              "include": [
+                "minecraft:custom_name",
+                "minecraft:container",
+                "minecraft:lock",
+                "minecraft:container_loot"
+              ],
               "source": "block_entity"
-            },
-            {
-              "function": "minecraft:copy_nbt",
-              "source": "block_entity",
-              "ops": [
-                {
-                  "source": "Lock",
-                  "target": "BlockEntityTag.Lock",
-                  "op": "replace"
-                },
-                {
-                  "source": "LootTable",
-                  "target": "BlockEntityTag.LootTable",
-                  "op": "replace"
-                },
-                {
-                  "source": "LootTableSeed",
-                  "target": "BlockEntityTag.LootTableSeed",
-                  "op": "replace"
-                }
-              ]
-            },
-            {
-              "function": "minecraft:set_contents",
-              "type": "minecraft:shulker_box",
-              "entries": [
-                {
-                  "type": "minecraft:dynamic",
-                  "name": "minecraft:contents"
-                }
-              ]
             }
           ]
         }

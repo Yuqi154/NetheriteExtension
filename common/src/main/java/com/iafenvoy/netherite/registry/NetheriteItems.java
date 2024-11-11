@@ -22,6 +22,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.Rarity;
 
 import java.util.List;
@@ -33,16 +34,16 @@ public final class NetheriteItems {
     public static final Item.Settings NETHERITE_SHULKER_BOX_ITEM_SETTINGS = new Item.Settings().maxCount(1).fireproof();
     public static final CauldronBehavior CLEAN_NETHERITE_BOX = (state, world, pos, player, hand, stack) -> {
         Block block = Block.getBlockFromItem(stack.getItem());
-        if (!(block instanceof NetheriteShulkerBoxBlock)) return ActionResult.PASS;
+        if (!(block instanceof NetheriteShulkerBoxBlock)) return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         else {
             if (!world.isClient) {
-                ItemStack itemStack = new ItemStack(NetheriteBlocks.NETHERITE_SHULKER_BOX.get());
-                if (stack.hasNbt()) itemStack.setNbt(stack.getOrCreateNbt().copy());
+                ;
+                ItemStack itemStack = stack.copyComponentsToNewStack(NetheriteBlocks.NETHERITE_SHULKER_BOX.get(), 1);
                 player.setStackInHand(hand, itemStack);
                 player.incrementStat(Stats.CLEAN_SHULKER_BOX);
                 LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
             }
-            return ActionResult.success(world.isClient);
+            return ItemActionResult.success(world.isClient);
         }
     };
     public static final RegistrySupplier<Item> NETHERITE_ELYTRA = register(new Identifier(NetheriteExtension.MOD_ID, "netherite_elytra"), () -> NetheriteElytraItem.create(new Item.Settings().maxDamage(NetheriteExtensionConfig.INSTANCE.durability.elytra).rarity(Rarity.UNCOMMON).fireproof()));
@@ -68,7 +69,7 @@ public final class NetheriteItems {
     public static final RegistrySupplier<Item> NETHERITE_RED_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_RED_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_RED_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
     public static final RegistrySupplier<Item> NETHERITE_BLACK_SHULKER_BOX = register(NetheriteBlocks.NETHERITE_BLACK_SHULKER_BOX, () -> new BlockItem(NetheriteBlocks.NETHERITE_BLACK_SHULKER_BOX.get(), NETHERITE_SHULKER_BOX_ITEM_SETTINGS));
     public static final RegistrySupplier<Item> NETHERITE_BEACON = register(NetheriteBlocks.NETHERITE_BEACON, () -> new BlockItem(NetheriteBlocks.NETHERITE_BEACON.get(), new Item.Settings().maxCount(64).fireproof()));
-    public static final RegistrySupplier<Item> NETHERITE_HORSE_ARMOR = register(new Identifier(NetheriteExtension.MOD_ID, "netherite_horse_armor"), () -> new NetheriteHorseArmorItem(15, new Item.Settings().maxCount(1).fireproof()));
+    public static final RegistrySupplier<Item> NETHERITE_HORSE_ARMOR = register(new Identifier(NetheriteExtension.MOD_ID, "netherite_horse_armor"), () -> new NetheriteHorseArmorItem(new Item.Settings().maxCount(1).fireproof()));
     public static final RegistrySupplier<Item> FAKE_NETHERITE_BLOCK = register(NetheriteBlocks.FAKE_NETHERITE_BLOCK, () -> new BlockItem(NetheriteBlocks.FAKE_NETHERITE_BLOCK.get(), new Item.Settings().fireproof()));
     public static final RegistrySupplier<Item> NETHERITE_ANVIL_ITEM = register(NetheriteBlocks.NETHERITE_ANVIL_BLOCK, () -> new BlockItem(NetheriteBlocks.NETHERITE_ANVIL_BLOCK.get(), new Item.Settings().fireproof()));
     public static final RegistrySupplier<Item> NETHERITE_SHEARS = register(new Identifier(NetheriteExtension.MOD_ID, "netherite_shears"), () -> new ShearsItem(new Item.Settings().fireproof().maxDamage(NetheriteExtensionConfig.INSTANCE.durability.shears)));

@@ -11,6 +11,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -120,20 +121,20 @@ public class NetheriteBeaconScreenHandler extends ScreenHandler {
 
     @Nullable
     @Environment(EnvType.CLIENT)
-    public StatusEffect getPrimaryEffect() {
-        return Registries.STATUS_EFFECT.get(this.propertyDelegate.get(1));
+    public RegistryEntry<StatusEffect> getPrimaryEffect() {
+        return Registries.STATUS_EFFECT.getEntry(Registries.STATUS_EFFECT.get(this.propertyDelegate.get(1)));
     }
 
     @Nullable
     @Environment(EnvType.CLIENT)
-    public StatusEffect getSecondaryEffect() {
-        return Registries.STATUS_EFFECT.get(this.propertyDelegate.get(2));
+    public RegistryEntry<StatusEffect> getSecondaryEffect() {
+        return Registries.STATUS_EFFECT.getEntry(Registries.STATUS_EFFECT.get(this.propertyDelegate.get(2)));
     }
 
     @Nullable
     @Environment(EnvType.CLIENT)
-    public StatusEffect getTertiaryEffect() {
-        return Registries.STATUS_EFFECT.get(this.propertyDelegate.get(3));
+    public RegistryEntry<StatusEffect> getTertiaryEffect() {
+        return Registries.STATUS_EFFECT.getEntry(Registries.STATUS_EFFECT.get(this.propertyDelegate.get(3)));
     }
 
     public void setEffects(Optional<StatusEffect> primaryEffect, Optional<StatusEffect> secondaryEffect, Optional<StatusEffect> tertiaryEffect) {

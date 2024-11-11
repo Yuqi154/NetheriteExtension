@@ -11,7 +11,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import java.util.Optional;
 
 public class ConstructNetheriteBeaconCriterion extends AbstractCriterion<ConstructNetheriteBeaconCriterion.Conditions> {
-
     public void trigger(ServerPlayerEntity player, NetheriteBeaconBlockEntity beacon) {
         this.trigger(player, (conditions) -> conditions.matches(beacon));
     }
@@ -19,7 +18,7 @@ public class ConstructNetheriteBeaconCriterion extends AbstractCriterion<Constru
     @Override
     public Codec<Conditions> getConditionsCodec() {
         return RecordCodecBuilder.create(i -> i.group(
-                LootContextPredicate.CODEC.optionalFieldOf("player", null).forGetter(Conditions::getPlayer),
+                LootContextPredicate.CODEC.optionalFieldOf("player", LootContextPredicate.create()).forGetter(Conditions::getPlayer),
                 NumberRange.IntRange.CODEC.fieldOf("level").forGetter(Conditions::getLevel)
         ).apply(i, Conditions::new));
     }

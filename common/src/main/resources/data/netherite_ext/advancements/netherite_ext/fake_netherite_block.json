@@ -2,7 +2,7 @@
   "parent": "netherite_ext:netherite_ext/root",
   "display": {
     "icon": {
-      "item": "netherite_ext:fake_netherite_block"
+      "id": "netherite_ext:fake_netherite_block"
     },
     "title": {
       "translate": "advancements.netherite_ext.fake_netherite_block.title"

@@ -2,6 +2,7 @@ package com.iafenvoy.netherite.item;
 
 import com.iafenvoy.netherite.entity.NetheriteFishingBobberEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.ItemStack;
@@ -28,7 +29,7 @@ public class NetheriteFishingRodItem extends FishingRodItem {
         if (user.fishHook != null) {
             if (!world.isClient) {
                 int fishingLevelUsage = user.fishHook.use(itemStack);
-                itemStack.damage(fishingLevelUsage, user, p -> p.sendToolBreakStatus(hand));
+                itemStack.damage(fishingLevelUsage, user, hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
             }
             world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_FISHING_BOBBER_RETRIEVE, SoundCategory.NEUTRAL, 1.0F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
         } else {

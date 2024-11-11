@@ -2,7 +2,7 @@
   "parent": "netherite_ext:netherite_ext/root",
   "display": {
     "icon": {
-      "item": "netherite_ext:netherite_shulker_box"
+      "id": "netherite_ext:netherite_shulker_box"
     },
     "title": {
       "translate": "advancements.netherite_ext.netherite_shulker_boxes.title"

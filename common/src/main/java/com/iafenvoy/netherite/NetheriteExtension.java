@@ -5,6 +5,7 @@ import com.iafenvoy.netherite.registry.*;
 import com.iafenvoy.netherite.screen.NetheriteBeaconScreenHandler;
 import com.mojang.logging.LogUtils;
 import dev.architectury.networking.NetworkManager;
+import net.minecraft.registry.entry.RegistryEntry;
 import org.slf4j.Logger;
 
 public class NetheriteExtension {
@@ -27,12 +28,11 @@ public class NetheriteExtension {
     public static void process() {
         NetheriteItems.init();
         NetheriteStats.init();
-        NetworkManager.registerReceiver(NetworkManager.Side.C2S, UpdateNetheriteBeaconC2SPacket.ID, (buf, ctx) -> {
-            UpdateNetheriteBeaconC2SPacket packet = new UpdateNetheriteBeaconC2SPacket(buf);
-            ctx.queue(() -> {
-                if (ctx.getPlayer().currentScreenHandler instanceof NetheriteBeaconScreenHandler screenHandler)
-                    screenHandler.setEffects(packet.getPrimaryEffectId(), packet.getSecondaryEffectId(), packet.getTertiaryEffect());
-            });
-        });
+        NetworkManager.registerReceiver(NetworkManager.Side.C2S, UpdateNetheriteBeaconC2SPacket.ID, UpdateNetheriteBeaconC2SPacket.CODEC, (packet, ctx) -> ctx.queue(() -> {
+            if (ctx.getPlayer().currentScreenHandler instanceof NetheriteBeaconScreenHandler screenHandler) {
+                screenHandler.setEffects(packet.primary().map(RegistryEntry::value), packet.secondary().map(RegistryEntry::value), packet.tertiaryEffect().map(RegistryEntry::value));
+                ctx.getPlayer().closeHandledScreen();
+            }
+        }));
     }
 }

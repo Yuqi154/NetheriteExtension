@@ -10,8 +10,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.util.Identifier;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 
 public class NetheriteShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
@@ -19,8 +18,9 @@ public class NetheriteShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
         super(category);
     }
 
+
     @Override
-    public ItemStack craft(RecipeInputInventory craftingInventory, DynamicRegistryManager registryManager) {
+    public ItemStack craft(RecipeInputInventory craftingInventory, RegistryWrapper.WrapperLookup lookup) {
         ItemStack itemStack = ItemStack.EMPTY;
         DyeItem dyeItem = (DyeItem) Items.WHITE_DYE;
         for (int i = 0; i < craftingInventory.size(); ++i) {
@@ -34,9 +34,7 @@ public class NetheriteShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
             }
         }
         ItemStack itemStack3 = NetheriteShulkerBoxBlock.getItemStack(dyeItem.getColor());
-        if (itemStack.hasNbt())
-            itemStack3.setNbt(itemStack.getOrCreateNbt().copy());
-        return itemStack3;
+        return itemStack.copyComponentsToNewStack(NetheriteShulkerBoxBlock.get(dyeItem.getColor()), 1);
     }
 
     @Override

@@ -6,7 +6,6 @@ import com.iafenvoy.netherite.network.UpdateNetheriteBeaconC2SPacket;
 import com.iafenvoy.netherite.screen.NetheriteBeaconScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.architectury.networking.NetworkManager;
-import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -22,7 +21,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerListener;
 import net.minecraft.screen.ScreenTexts;
@@ -34,7 +33,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class NetheriteBeaconScreen extends HandledScreen<NetheriteBeaconScreenHandler> {
-    public static final StatusEffect[][] EFFECTS_BY_LEVEL = new StatusEffect[][]{
+    public static final RegistryEntry<StatusEffect>[][] EFFECTS_BY_LEVEL = new RegistryEntry[][]{
             {StatusEffects.SPEED, StatusEffects.HASTE},
             {StatusEffects.RESISTANCE, StatusEffects.JUMP_BOOST},
             {StatusEffects.STRENGTH},
@@ -46,9 +45,9 @@ public class NetheriteBeaconScreen extends HandledScreen<NetheriteBeaconScreenHa
     private static final Text SECONDARY_TEXT = Text.translatable("block.minecraft.beacon.secondary");
     private static final Text TERTIARY_TEXT = Text.translatable("block.netherite_ext.netherite_beacon.tertiary");
     private final List<BeaconButtonWidget> buttons = Lists.newArrayList();
-    private StatusEffect primaryEffect;
-    private StatusEffect secondaryEffect;
-    private StatusEffect tertiaryEffect;
+    private RegistryEntry<StatusEffect> primaryEffect;
+    private RegistryEntry<StatusEffect> secondaryEffect;
+    private RegistryEntry<StatusEffect> tertiaryEffect;
 
     public NetheriteBeaconScreen(final NetheriteBeaconScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -86,7 +85,7 @@ public class NetheriteBeaconScreen extends HandledScreen<NetheriteBeaconScreenHa
             int spacing = levelEffectCount * 22 + (levelEffectCount - 1) * 2;
 
             for (int levelEffectIndex = 0; levelEffectIndex < levelEffectCount; ++levelEffectIndex) {
-                StatusEffect effect = EFFECTS_BY_LEVEL[mainEffectIndex][levelEffectIndex];
+                RegistryEntry<StatusEffect> effect = EFFECTS_BY_LEVEL[mainEffectIndex][levelEffectIndex];
                 EffectButtonWidget widget = new EffectButtonWidget(this.x + 76 + levelEffectIndex * 24 - spacing / 2, this.y + 22 + mainEffectIndex * 25, effect, 0, mainEffectIndex);
                 widget.active = false;
                 this.addButton(widget);
@@ -99,7 +98,7 @@ public class NetheriteBeaconScreen extends HandledScreen<NetheriteBeaconScreenHa
             int spacing = levelEffectCount * 22 + (levelEffectCount - 1) * 2;
 
             for (int levelEffectIndex = 0; levelEffectIndex < levelEffectCount - 1; ++levelEffectIndex) {
-                StatusEffect effect = EFFECTS_BY_LEVEL[additionalEffectIndex][levelEffectIndex];
+                RegistryEntry<StatusEffect> effect = EFFECTS_BY_LEVEL[additionalEffectIndex][levelEffectIndex];
                 EffectButtonWidget widget = new EffectButtonWidget(this.x + 175 + levelEffectIndex * 24 - spacing / 2, this.y + 22 + (additionalEffectIndex - additionalEffectsStartIndex) * 50, effect, (additionalEffectIndex - additionalEffectsStartIndex) + 1, 3);
                 widget.active = false;
                 this.addButton(widget);
@@ -234,14 +233,9 @@ public class NetheriteBeaconScreen extends HandledScreen<NetheriteBeaconScreenHa
 
         @Override
         public void onPress() {
-            PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
-            new UpdateNetheriteBeaconC2SPacket(Optional.ofNullable(NetheriteBeaconScreen.this.primaryEffect),
+            NetworkManager.sendToServer(new UpdateNetheriteBeaconC2SPacket(Optional.ofNullable(NetheriteBeaconScreen.this.primaryEffect),
                     Optional.ofNullable(NetheriteBeaconScreen.this.secondaryEffect),
-                    Optional.ofNullable(NetheriteBeaconScreen.this.tertiaryEffect))
-                    .write(buf);
-            NetworkManager.sendToServer(UpdateNetheriteBeaconC2SPacket.ID, buf);
-            assert NetheriteBeaconScreen.this.client != null && NetheriteBeaconScreen.this.client.player != null;
-            NetheriteBeaconScreen.this.client.player.closeHandledScreen();
+                    Optional.ofNullable(NetheriteBeaconScreen.this.tertiaryEffect)));
         }
 
         @Override
@@ -254,17 +248,17 @@ public class NetheriteBeaconScreen extends HandledScreen<NetheriteBeaconScreenHa
     class EffectButtonWidget extends BaseButtonWidget {
         protected final int effectIndex;
         private final int level;
-        private StatusEffect effect;
+        private RegistryEntry<StatusEffect> effect;
         private Sprite sprite;
 
-        public EffectButtonWidget(int x, int y, StatusEffect statusEffect, int effectIndex, int level) {
+        public EffectButtonWidget(int x, int y, RegistryEntry<StatusEffect> statusEffect, int effectIndex, int level) {
             super(x, y);
             this.effectIndex = effectIndex;
             this.level = level;
             this.init(statusEffect);
         }
 
-        protected void init(StatusEffect statusEffect) {
+        protected void init(RegistryEntry<StatusEffect> statusEffect) {
             this.effect = statusEffect;
             this.sprite = MinecraftClient.getInstance().getStatusEffectSpriteManager().getSprite(statusEffect);
         }
@@ -303,13 +297,13 @@ public class NetheriteBeaconScreen extends HandledScreen<NetheriteBeaconScreenHa
         }
 
         protected MutableText getNarrationMessage() {
-            return this.getEffectName(this.effect);
+            return this.getEffectName(this.effect.value());
         }
     }
 
     @Environment(EnvType.CLIENT)
     class AdditionalEffectButtonWidget extends EffectButtonWidget {
-        public AdditionalEffectButtonWidget(int i, int j, int effectIndex, StatusEffect statusEffect) {
+        public AdditionalEffectButtonWidget(int i, int j, int effectIndex, RegistryEntry<StatusEffect> statusEffect) {
             super(i, j, statusEffect, effectIndex, 3);
         }
 

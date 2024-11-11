@@ -16,6 +16,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ShulkerBoxScreenHandler;
 import net.minecraft.sound.SoundCategory;
@@ -76,16 +77,16 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
         return new ShulkerBoxScreenHandler(syncId, playerInventory, this);
     }
 
-    public void deserializeInventory(NbtCompound tag) {
+    public void deserializeInventory(NbtCompound tag, RegistryWrapper.WrapperLookup lookup) {
         this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
         if (!this.readLootTable(tag) && tag.contains("Items", 9))
-            Inventories.readNbt(tag, this.inventory);
+            Inventories.readNbt(tag, this.inventory, lookup);
     }
 
     @Override
-    public void readNbt(NbtCompound tag) {
-        super.readNbt(tag);
-        this.deserializeInventory(tag);
+    public void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup lookup) {
+        super.readNbt(tag, lookup);
+        this.deserializeInventory(tag, lookup);
     }
 
     public float getAnimationProgress(float f) {
@@ -125,7 +126,7 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
     }
 
     @Override
-    protected void setInvStackList(DefaultedList<ItemStack> list) {
+    protected void setHeldStacks(DefaultedList<ItemStack> list) {
         this.inventory = list;
     }
 
@@ -175,7 +176,7 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
     private void pushEntities(World world, BlockPos pos, BlockState state) {
         if (state.getBlock() instanceof NetheriteShulkerBoxBlock) {
             Direction direction = state.get(NetheriteShulkerBoxBlock.FACING);
-            Box box = ShulkerEntity.calculateBoundingBox(direction, this.prevAnimationProgress, this.animationProgress).offset(pos);
+            Box box = ShulkerEntity.calculateBoundingBox(this.prevAnimationProgress, direction, this.animationProgress).offset(pos);
             List<Entity> list = world.getOtherEntities(null, box);
             if (!list.isEmpty())
                 for (Entity entity : list)
@@ -188,9 +189,9 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
         }
     }
 
-    public NbtCompound serializeInventory(NbtCompound tag) {
+    public NbtCompound serializeInventory(NbtCompound tag, RegistryWrapper.WrapperLookup lookup) {
         if (!this.writeLootTable(tag))
-            Inventories.readNbt(tag, this.inventory);
+            Inventories.readNbt(tag, this.inventory, lookup);
         return tag;
     }
 
@@ -200,7 +201,7 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
     }
 
     @Override
-    protected DefaultedList<ItemStack> method_11282() {
+    protected DefaultedList<ItemStack> getHeldStacks() {
         return this.inventory;
     }
 
@@ -214,9 +215,9 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
     }
 
     @Override
-    public void writeNbt(NbtCompound tag) {
-        super.writeNbt(tag);
-        this.serializeInventory(tag);
+    public void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup lookup) {
+        super.writeNbt(tag, lookup);
+        this.serializeInventory(tag, lookup);
     }
 
     private void updateAnimation(World world, BlockPos pos, BlockState state) {

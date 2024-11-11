@@ -3,12 +3,15 @@ package com.iafenvoy.netherite.item;
 import com.iafenvoy.netherite.config.NetheriteExtensionConfig;
 import com.iafenvoy.netherite.entity.NetheriteTridentEntity;
 import com.iafenvoy.netherite.registry.NetheriteCriteria;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.TridentItem;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -22,10 +25,13 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class NetheriteTridentItem extends TridentItem {
-    public NetheriteTridentItem(Settings settings) {
+    public NetheriteTridentItem(Item.Settings settings) {
         super(settings);
-        this.attributeModifiers.get(EntityAttributes.GENERIC_ATTACK_DAMAGE).forEach(eam -> eam.value = eam.getValue() * NetheriteExtensionConfig.INSTANCE.damage.trident_damage_multiplier + NetheriteExtensionConfig.INSTANCE.damage.trident_damage_addition);
+        AttributeModifiersComponent component = this.getComponents().getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, new AttributeModifiersComponent(List.of(), true));
+        component.modifiers().forEach(eam -> eam.modifier().value = eam.modifier().value * NetheriteExtensionConfig.INSTANCE.damage.trident_damage_multiplier + NetheriteExtensionConfig.INSTANCE.damage.trident_damage_addition);
     }
 
     @Override
@@ -36,7 +42,7 @@ public class NetheriteTridentItem extends TridentItem {
                 int riptideLevel = EnchantmentHelper.getRiptide(stack);
                 if (riptideLevel <= 0 || playerEntity.isTouchingWaterOrRain() || playerEntity.isInLava()) {
                     if (!world.isClient) {
-                        stack.damage(1, playerEntity, (p) -> p.sendToolBreakStatus(user.getActiveHand()));
+                        stack.damage(1, playerEntity, EquipmentSlot.MAINHAND);
                         if (riptideLevel == 0) {
                             NetheriteTridentEntity tridentEntity = new NetheriteTridentEntity(world, playerEntity, stack);
                             tridentEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, 2.5F + riptideLevel * 0.5F, 1.0F);

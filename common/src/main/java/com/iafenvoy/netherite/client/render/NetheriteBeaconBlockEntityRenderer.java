@@ -62,22 +62,21 @@ public class NetheriteBeaconBlockEntityRenderer implements BlockEntityRenderer<N
     private static void renderBeamLayer(MatrixStack matrixStack, VertexConsumer vertexConsumer, float f, float g, float h, float i, int j, int k, float l, float m, float n, float o, float p, float q, float r, float s, float t, float u, float v, float w) {
         MatrixStack.Entry entry = matrixStack.peek();
         Matrix4f matrix4f = entry.getPositionMatrix();
-        Matrix3f matrix3f = entry.getNormalMatrix();
-        renderBeamFace(matrix4f, matrix3f, vertexConsumer, f, g, h, i, j, k, l, m, n, o, t, u, v, w);
-        renderBeamFace(matrix4f, matrix3f, vertexConsumer, f, g, h, i, j, k, r, s, p, q, t, u, v, w);
-        renderBeamFace(matrix4f, matrix3f, vertexConsumer, f, g, h, i, j, k, n, o, r, s, t, u, v, w);
-        renderBeamFace(matrix4f, matrix3f, vertexConsumer, f, g, h, i, j, k, p, q, l, m, t, u, v, w);
+        renderBeamFace(entry, matrix4f, vertexConsumer, f, g, h, i, j, k, l, m, n, o, t, u, v, w);
+        renderBeamFace(entry, matrix4f, vertexConsumer, f, g, h, i, j, k, r, s, p, q, t, u, v, w);
+        renderBeamFace(entry, matrix4f, vertexConsumer, f, g, h, i, j, k, n, o, r, s, t, u, v, w);
+        renderBeamFace(entry, matrix4f, vertexConsumer, f, g, h, i, j, k, p, q, l, m, t, u, v, w);
     }
 
-    private static void renderBeamFace(Matrix4f matrix4f, Matrix3f matrix3f, VertexConsumer vertexConsumer, float f, float g, float h, float i, int j, int k, float l, float m, float n, float o, float p, float q, float r, float s) {
-        renderBeamVertex(matrix4f, matrix3f, vertexConsumer, f, g, h, i, k, l, m, q, r);
-        renderBeamVertex(matrix4f, matrix3f, vertexConsumer, f, g, h, i, j, l, m, q, s);
-        renderBeamVertex(matrix4f, matrix3f, vertexConsumer, f, g, h, i, j, n, o, p, s);
-        renderBeamVertex(matrix4f, matrix3f, vertexConsumer, f, g, h, i, k, n, o, p, r);
+    private static void renderBeamFace(MatrixStack.Entry entry, Matrix4f matrix4f, VertexConsumer vertexConsumer, float f, float g, float h, float i, int j, int k, float l, float m, float n, float o, float p, float q, float r, float s) {
+        renderBeamVertex(entry, matrix4f, vertexConsumer, f, g, h, i, k, l, m, q, r);
+        renderBeamVertex(entry, matrix4f, vertexConsumer, f, g, h, i, j, l, m, q, s);
+        renderBeamVertex(entry, matrix4f, vertexConsumer, f, g, h, i, j, n, o, p, s);
+        renderBeamVertex(entry, matrix4f, vertexConsumer, f, g, h, i, k, n, o, p, r);
     }
 
-    private static void renderBeamVertex(Matrix4f matrix4f, Matrix3f matrix3f, VertexConsumer vertexConsumer, float f, float g, float h, float i, int j, float k, float l, float u, float v) {
-        vertexConsumer.vertex(matrix4f, k, j, l).color(f, g, h, i).texture(u, v).overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(matrix3f, 0.0F, 1.0F, 0.0F).next();
+    private static void renderBeamVertex(MatrixStack.Entry entry, Matrix4f matrix4f, VertexConsumer vertexConsumer, float f, float g, float h, float i, int j, float k, float l, float u, float v) {
+        vertexConsumer.vertex(matrix4f, k, j, l).color(f, g, h, i).texture(u, v).overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(entry, 0.0F, 1.0F, 0.0F).next();
     }
 
     @Override

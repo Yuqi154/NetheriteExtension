@@ -6,7 +6,7 @@
     "item": "minecraft:netherite_ingot"
   },
   "result": {
-    "item": "netherite_ext:netherite_light_blue_shulker_box"
+    "id": "netherite_ext:netherite_light_blue_shulker_box"
   },
   "type": "minecraft:smithing_transform",
   "template": {

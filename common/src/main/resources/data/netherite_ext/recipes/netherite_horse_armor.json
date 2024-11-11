@@ -6,7 +6,7 @@
     "item": "minecraft:netherite_ingot"
   },
   "result": {
-    "item": "netherite_ext:netherite_horse_armor"
+    "id": "netherite_ext:netherite_horse_armor"
   },
   "type": "minecraft:smithing_transform",
   "template": {

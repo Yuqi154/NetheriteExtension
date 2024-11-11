@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "netherite_ext:netherite_elytra"
+      "id": "netherite_ext:netherite_elytra"
     },
     "title": {
       "translate": "advancements.netherite_ext.netherite_elytra_special.title"
