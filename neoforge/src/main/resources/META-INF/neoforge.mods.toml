@@ -24,7 +24,7 @@ side = "BOTH"
 [[dependencies.netherite_ext]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.20.4,1.21)"
+versionRange = "[1.20.6,1.21)"
 ordering = "NONE"
 side = "BOTH"
 

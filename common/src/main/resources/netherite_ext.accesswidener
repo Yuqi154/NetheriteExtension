@@ -18,8 +18,9 @@ accessible field net/minecraft/entity/projectile/FishingBobberEntity lureLevel I
 accessible field net/minecraft/entity/projectile/FishingBobberEntity luckOfTheSeaLevel I
 accessible field net/minecraft/entity/projectile/PersistentProjectileEntity stack Lnet/minecraft/item/ItemStack;
 accessible field net/minecraft/entity/projectile/TridentEntity dealtDamage Z
-accessible field net/minecraft/item/TridentItem attributeModifiers Lcom/google/common/collect/Multimap;
 accessible field net/minecraft/entity/attribute/EntityAttributeModifier value D
 mutable field net/minecraft/entity/attribute/EntityAttributeModifier value D
 accessible class net/minecraft/client/render/BackgroundRenderer$FogData
 extendable method net/minecraft/client/gui/widget/ClickableWidget render (Lnet/minecraft/client/gui/DrawContext;IIF)V
+accessible method net/minecraft/client/gui/screen/ingame/HandledScreens register (Lnet/minecraft/screen/ScreenHandlerType;Lnet/minecraft/client/gui/screen/ingame/HandledScreens$Provider;)V
+accessible class net/minecraft/client/gui/screen/ingame/HandledScreens$Provider

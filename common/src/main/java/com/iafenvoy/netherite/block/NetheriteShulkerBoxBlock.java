@@ -100,7 +100,7 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
         if (entity.getAnimationStage() != AnimationStage.CLOSED)
             return true;
         else {
-            Box box = ShulkerEntity.calculateBoundingBox(0.0F, state.get(FACING), 0.5F).offset(pos).contract(1.0E-6);
+            Box box = ShulkerEntity.calculateBoundingBox(1, state.get(FACING), 0.5f).offset(pos).contract(1.0E-6).shrink(0, -1, 0);
             return world.isSpaceEmpty(box);
         }
     }
