@@ -10,6 +10,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -120,26 +121,26 @@ public class NetheriteBeaconScreenHandler extends ScreenHandler {
     @Nullable
     @Environment(EnvType.CLIENT)
     public StatusEffect getPrimaryEffect() {
-        return StatusEffect.byRawId(this.propertyDelegate.get(1));
+        return Registries.STATUS_EFFECT.get(this.propertyDelegate.get(1));
     }
 
     @Nullable
     @Environment(EnvType.CLIENT)
     public StatusEffect getSecondaryEffect() {
-        return StatusEffect.byRawId(this.propertyDelegate.get(2));
+        return Registries.STATUS_EFFECT.get(this.propertyDelegate.get(2));
     }
 
     @Nullable
     @Environment(EnvType.CLIENT)
     public StatusEffect getTertiaryEffect() {
-        return StatusEffect.byRawId(this.propertyDelegate.get(3));
+        return Registries.STATUS_EFFECT.get(this.propertyDelegate.get(3));
     }
 
     public void setEffects(Optional<StatusEffect> primaryEffect, Optional<StatusEffect> secondaryEffect, Optional<StatusEffect> tertiaryEffect) {
         if (this.paymentSlot.hasStack()) {
-            this.propertyDelegate.set(1, primaryEffect.map(StatusEffect::getRawId).orElse(-1));
-            this.propertyDelegate.set(2, secondaryEffect.map(StatusEffect::getRawId).orElse(-1));
-            this.propertyDelegate.set(3, tertiaryEffect.map(StatusEffect::getRawId).orElse(-1));
+            this.propertyDelegate.set(1, primaryEffect.map(Registries.STATUS_EFFECT::getRawId).orElse(-1));
+            this.propertyDelegate.set(2, secondaryEffect.map(Registries.STATUS_EFFECT::getRawId).orElse(-1));
+            this.propertyDelegate.set(3, tertiaryEffect.map(Registries.STATUS_EFFECT::getRawId).orElse(-1));
             this.paymentSlot.takeStack(1);
             this.context.run(World::markDirty);
         }

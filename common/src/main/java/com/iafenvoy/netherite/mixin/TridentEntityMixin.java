@@ -28,7 +28,7 @@ public abstract class TridentEntityMixin extends Entity {
     public void sendTridentStackOnSpawn(CallbackInfoReturnable<Packet<?>> info) {
         if ((Object) this instanceof TridentEntity tridentEntity) {
             PacketByteBuf passedData = PacketBufferUtils.create();
-            passedData.writeInt(Registries.ITEM.getRawId(tridentEntity.tridentStack.getItem()));
+            passedData.writeInt(Registries.ITEM.getRawId(tridentEntity.stack.getItem()));
             for (ServerPlayerEntity player : this.getWorld().getServer().getPlayerManager().getPlayerList())
                 NetworkManager.sendToPlayer(player, new Identifier(NetheriteExtension.MOD_ID, "netherite_trident"), passedData);
         }

@@ -15,8 +15,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class NetheriteShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
-    public NetheriteShulkerBoxColoringRecipe(Identifier identifier, CraftingRecipeCategory category) {
-        super(identifier, category);
+    public NetheriteShulkerBoxColoringRecipe(CraftingRecipeCategory category) {
+        super(category);
     }
 
     @Override

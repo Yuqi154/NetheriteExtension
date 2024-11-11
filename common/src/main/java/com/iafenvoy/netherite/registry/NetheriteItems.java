@@ -80,7 +80,7 @@ public final class NetheriteItems {
         return register(block.getId(), () -> {
             Item i = item.get();
             if (block.get() instanceof NetheriteShulkerBoxBlock)
-                CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(i, CLEAN_NETHERITE_BOX);
+                CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(i, CLEAN_NETHERITE_BOX);
             return i;
         });
     }
@@ -131,7 +131,7 @@ public final class NetheriteItems {
                 NETHERITE_TRIDENT,
                 NETHERITE_SHIELD,
                 FAKE_NETHERITE_BLOCK);
-        NETHERITE_SHULKERS.forEach(x -> CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(x.get(), CLEAN_NETHERITE_BOX));
+        NETHERITE_SHULKERS.forEach(x -> CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(x.get(), CLEAN_NETHERITE_BOX));
         DispenserBlock.registerBehavior(NETHERITE_SHEARS.get(), new ShearsDispenserBehavior());
     }
 }

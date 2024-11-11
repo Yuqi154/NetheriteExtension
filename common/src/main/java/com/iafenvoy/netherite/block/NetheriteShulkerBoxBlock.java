@@ -3,6 +3,7 @@ package com.iafenvoy.netherite.block;
 import com.iafenvoy.netherite.block.entity.NetheriteShulkerBoxBlockEntity;
 import com.iafenvoy.netherite.block.entity.NetheriteShulkerBoxBlockEntity.AnimationStage;
 import com.iafenvoy.netherite.registry.NetheriteBlocks;
+import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
@@ -39,6 +40,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -142,7 +144,7 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, NetheriteBlocks.NETHERITE_SHULKER_BOX_ENTITY.get(), NetheriteShulkerBoxBlockEntity::tick);
+        return (world1, pos, state1, blockEntity) -> NetheriteShulkerBoxBlockEntity.tick(world1, pos, state1, (NetheriteShulkerBoxBlockEntity) blockEntity);
     }
 
     public @Nullable DyeColor getColor() {
@@ -172,7 +174,7 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
     }
 
     @Override
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
         ItemStack itemStack = super.getPickStack(world, pos, state);
         NetheriteShulkerBoxBlockEntity shulkerBoxBlockEntity = (NetheriteShulkerBoxBlockEntity) world.getBlockEntity(pos);
         NbtCompound compoundTag = shulkerBoxBlockEntity.serializeInventory(new NbtCompound());
@@ -184,6 +186,11 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return this.getDefaultState().with(FACING, ctx.getSide());
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return null;
     }
 
     @Override
@@ -202,7 +209,7 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof NetheriteShulkerBoxBlockEntity netheriteShulkerBoxBlockEntity) {
             if (!world.isClient && player.isCreative() && !netheriteShulkerBoxBlockEntity.isEmpty()) {
@@ -216,9 +223,10 @@ public class NetheriteShulkerBoxBlock extends BlockWithEntity {
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);
             } else
-                netheriteShulkerBoxBlockEntity.checkLootInteraction(player);
+                netheriteShulkerBoxBlockEntity.generateLoot(player);
         }
         super.onBreak(world, pos, state, player);
+        return state;
     }
 
     @Override

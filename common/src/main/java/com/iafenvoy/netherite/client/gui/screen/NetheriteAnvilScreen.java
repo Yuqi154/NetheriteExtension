@@ -18,6 +18,8 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class NetheriteAnvilScreen extends ForgingScreen<NetheriteAnvilScreenHandler> {
+    private static final Identifier TEXT_FIELD_TEXTURE = new Identifier("container/anvil/text_field");
+    private static final Identifier TEXT_FIELD_DISABLED_TEXTURE = new Identifier("container/anvil/text_field_disabled");
     private static final Identifier TEXTURE = new Identifier("textures/gui/container/anvil.png");
     private static final Text TOO_EXPENSIVE_TEXT = Text.translatable("container.repair.expensive");
     private final PlayerEntity player;
@@ -27,11 +29,6 @@ public class NetheriteAnvilScreen extends ForgingScreen<NetheriteAnvilScreenHand
         super(handler, inventory, title, TEXTURE);
         this.player = inventory.player;
         this.titleX = 60;
-    }
-
-    public void handledScreenTick() {
-        super.handledScreenTick();
-        this.nameField.tick();
     }
 
     @Override
@@ -62,7 +59,7 @@ public class NetheriteAnvilScreen extends ForgingScreen<NetheriteAnvilScreenHand
 
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
         super.drawBackground(context, delta, mouseX, mouseY);
-        context.drawTexture(TEXTURE, this.x + 59, this.y + 20, 0, this.backgroundHeight + (this.handler.getSlot(0).hasStack() ? 0 : 16), 110, 16);
+        context.drawGuiTexture(this.handler.getSlot(0).hasStack() ? TEXT_FIELD_TEXTURE : TEXT_FIELD_DISABLED_TEXTURE, this.x + 59, this.y + 20, 110, 16);
     }
 
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {

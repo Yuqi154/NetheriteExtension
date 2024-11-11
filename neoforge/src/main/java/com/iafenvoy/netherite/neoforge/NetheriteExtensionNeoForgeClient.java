@@ -1,15 +1,15 @@
-package com.iafenvoy.netherite.forge;
+package com.iafenvoy.netherite.neoforge;
 
 import com.iafenvoy.netherite.NetheriteExtensionClient;
 import com.iafenvoy.netherite.registry.NetheriteRenderers;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ModelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ModelEvent;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class NetheriteExtensionForgeClient {
+public class NetheriteExtensionNeoForgeClient {
     @SubscribeEvent
     public static void init(FMLClientSetupEvent event) {
         event.enqueueWork(NetheriteExtensionClient::process);

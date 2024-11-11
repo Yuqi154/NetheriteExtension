@@ -1,9 +1,10 @@
-package com.iafenvoy.netherite.item.impl.forge;
+package com.iafenvoy.netherite.item.impl.neoforge;
 
 import com.iafenvoy.netherite.item.impl.NetheriteElytraItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class NetheriteElytraItemImpl extends NetheriteElytraItem {
     protected NetheriteElytraItemImpl(Settings settings) {
@@ -15,7 +16,7 @@ public class NetheriteElytraItemImpl extends NetheriteElytraItem {
     }
 
     @Override
-    public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
-        return ElytraItem.isUsable(stack);
+    public boolean canElytraFly(@NotNull ItemStack stack, @NotNull LivingEntity entity) {
+         return ElytraItem.isUsable(stack);
     }
 }

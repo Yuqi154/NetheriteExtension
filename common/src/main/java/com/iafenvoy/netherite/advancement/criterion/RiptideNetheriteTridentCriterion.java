@@ -1,44 +1,42 @@
 package com.iafenvoy.netherite.advancement.criterion;
 
-import com.google.gson.JsonObject;
-import com.iafenvoy.netherite.NetheriteExtension;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancement.criterion.AbstractCriterion;
-import net.minecraft.advancement.criterion.AbstractCriterionConditions;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
 import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+
+import java.util.Optional;
 
 public class RiptideNetheriteTridentCriterion extends AbstractCriterion<RiptideNetheriteTridentCriterion.Conditions> {
-    public static final Identifier id = new Identifier(NetheriteExtension.MOD_ID, "riptide_netherite_trident");
-
-    @Override
-    public Identifier getId() {
-        return id;
-    }
-
-    @Override
-    public Conditions conditionsFromJson(JsonObject jsonObject, LootContextPredicate extended, AdvancementEntityPredicateDeserializer advancementEntityPredicateDeserializer) {
-        return new Conditions(extended);
-    }
 
     public void trigger(ServerPlayerEntity player) {
         this.trigger(player, (conditions) -> conditions.matches(player));
     }
 
-    public static class Conditions extends AbstractCriterionConditions {
+    @Override
+    public Codec<Conditions> getConditionsCodec() {
+        return RecordCodecBuilder.create(i -> i.group(LootContextPredicate.CODEC.optionalFieldOf("player", null).forGetter(Conditions::getPlayer)).apply(i, Conditions::new));
+    }
+
+    public static class Conditions implements AbstractCriterion.Conditions {
+        private final LootContextPredicate player;
+
         public Conditions(LootContextPredicate player) {
-            super(id, player);
+            this.player = player;
         }
 
         public boolean matches(ServerPlayerEntity player) {
             return true;
         }
 
+        public LootContextPredicate getPlayer() {
+            return player;
+        }
+
         @Override
-        public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
-            return super.toJson(predicateSerializer);
+        public Optional<LootContextPredicate> player() {
+            return Optional.ofNullable(this.player);
         }
     }
 }

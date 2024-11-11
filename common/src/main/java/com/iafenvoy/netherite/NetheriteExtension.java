@@ -14,15 +14,17 @@ public class NetheriteExtension {
     public static void init() {
         NetheriteBlocks.BLOCK_REGISTRY.register();
         NetheriteBlocks.BLOCK_ENTITY_REGISTRY.register();
+        NetheriteCriteria.REGISTRY.register();
         NetheriteItemGroups.REGISTRY.register();
         NetheriteItems.REGISTRY.register();
         NetheriteRecipeSerializers.REGISTRY.register();
         NetheriteScreenHandlers.REGISTRY.register();
         NetheriteStatusEffects.REGISTRY.register();
+        NetheriteStats.STATS_REGISTRY.register();
+        NetheriteStats.TYPE_REGISTRY.register();
     }
 
     public static void process() {
-        NetheriteCriteria.init();
         NetheriteItems.init();
         NetheriteStats.init();
         NetworkManager.registerReceiver(NetworkManager.Side.C2S, UpdateNetheriteBeaconC2SPacket.ID, (buf, ctx) -> {

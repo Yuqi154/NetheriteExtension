@@ -1,18 +1,33 @@
 package com.iafenvoy.netherite.item.impl;
 
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import com.iafenvoy.netherite.item.NetheriteElytraArmorMaterials;
 import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
-public class NetheriteElytraItem extends ArmorItem {
+import java.util.UUID;
+
+public class NetheriteElytraItem extends ElytraItem {
     protected NetheriteElytraItem(Settings settings) {
-        super(NetheriteElytraArmorMaterials.NETHERITE_ELYTRA_MATERIAL, Type.CHESTPLATE, settings);
+        super(settings);
+    }
+
+    @Override
+    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
+        if (slot != EquipmentSlot.CHEST) return super.getAttributeModifiers(slot);
+        return ImmutableMultimap.of(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), "netherite_elytra", NetheriteElytraArmorMaterials.NETHERITE_ELYTRA_MATERIAL.getProtection(ArmorItem.Type.CHESTPLATE), EntityAttributeModifier.Operation.ADDITION));
     }
 
     @ExpectPlatform
-    public static NetheriteElytraItem create(Settings settings){
+    public static NetheriteElytraItem create(Settings settings) {
         throw new AssertionError("This method should be replaced by Architectury.");
     }
 

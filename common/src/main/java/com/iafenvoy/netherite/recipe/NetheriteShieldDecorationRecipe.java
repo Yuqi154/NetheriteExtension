@@ -8,12 +8,11 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class NetheriteShieldDecorationRecipe extends SpecialCraftingRecipe {
-    public NetheriteShieldDecorationRecipe(Identifier identifier, CraftingRecipeCategory category) {
-        super(identifier, category);
+    public NetheriteShieldDecorationRecipe(CraftingRecipeCategory category) {
+        super(category);
     }
 
     @Override

@@ -16,6 +16,7 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.util.SkinTextures;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -38,10 +39,11 @@ public class NetheriteElytraFeatureRenderer<T extends LivingEntity, M extends En
         if (itemStack.isOf(NetheriteItems.NETHERITE_ELYTRA.get())) {
             Identifier identifier4;
             if (livingEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
-                if (abstractClientPlayerEntity.canRenderElytraTexture() && abstractClientPlayerEntity.getElytraTexture() != null)
-                    identifier4 = abstractClientPlayerEntity.getElytraTexture();
-                else if (abstractClientPlayerEntity.canRenderCapeTexture() && abstractClientPlayerEntity.getCapeTexture() != null && abstractClientPlayerEntity.isPartVisible(PlayerModelPart.CAPE))
-                    identifier4 = abstractClientPlayerEntity.getCapeTexture();
+                SkinTextures skinTextures = abstractClientPlayerEntity.getSkinTextures();
+                if (skinTextures.elytraTexture() != null)
+                    identifier4 = skinTextures.elytraTexture();
+                else if (skinTextures.capeTexture() != null && abstractClientPlayerEntity.isPartVisible(PlayerModelPart.CAPE))
+                    identifier4 = skinTextures.capeTexture();
                 else identifier4 = NETHERITE_ELYTRA_SKIN;
             } else identifier4 = NETHERITE_ELYTRA_SKIN;
 

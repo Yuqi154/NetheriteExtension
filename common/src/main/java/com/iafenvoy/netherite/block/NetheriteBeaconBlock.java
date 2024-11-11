@@ -1,7 +1,6 @@
 package com.iafenvoy.netherite.block;
 
 import com.iafenvoy.netherite.block.entity.NetheriteBeaconBlockEntity;
-import com.iafenvoy.netherite.registry.NetheriteBlocks;
 import net.minecraft.block.BeaconBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -41,7 +40,7 @@ public class NetheriteBeaconBlock extends BeaconBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, NetheriteBlocks.NETHERITE_BEACON_BLOCK_ENTITY.get(), NetheriteBeaconBlockEntity::tick);
+        return (world1, pos, state1, blockEntity) -> NetheriteBeaconBlockEntity.tick(world1, pos, state1, (NetheriteBeaconBlockEntity) blockEntity);
     }
 
     @Override

@@ -22,6 +22,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ContainerLock;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
@@ -64,9 +65,9 @@ public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScre
         public int get(int index) {
             return switch (index) {
                 case 0 -> NetheriteBeaconBlockEntity.this.beaconLevel;
-                case 1 -> StatusEffect.getRawId(NetheriteBeaconBlockEntity.this.primary);
-                case 2 -> StatusEffect.getRawId(NetheriteBeaconBlockEntity.this.secondary);
-                case 3 -> StatusEffect.getRawId(NetheriteBeaconBlockEntity.this.tertiary);
+                case 1 -> Registries.STATUS_EFFECT.getRawId(NetheriteBeaconBlockEntity.this.primary);
+                case 2 -> Registries.STATUS_EFFECT.getRawId(NetheriteBeaconBlockEntity.this.secondary);
+                case 3 -> Registries.STATUS_EFFECT.getRawId(NetheriteBeaconBlockEntity.this.tertiary);
                 default -> 0;
             };
         }
@@ -106,7 +107,7 @@ public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScre
 
     @Nullable
     private static StatusEffect getPotionEffectById(int id) {
-        StatusEffect statusEffect = StatusEffect.byRawId(id);
+        StatusEffect statusEffect = Registries.STATUS_EFFECT.get(id);
         return EFFECTS.contains(statusEffect) ? statusEffect : null;
     }
 
@@ -164,12 +165,12 @@ public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScre
                 if (blockEntity.netheriteLevel == 164) {
                     List<ServerPlayerEntity> var14 = world.getNonSpectatingEntities(ServerPlayerEntity.class, new Box(i, j, k, i, j - 4, k).expand(10.0D, 5.0D, 10.0D));
                     for (ServerPlayerEntity serverPlayerEntity : var14)
-                        NetheriteCriteria.FULL_NETHERITE_NETHERITE_BEACON.trigger(serverPlayerEntity, blockEntity);
+                        NetheriteCriteria.FULL_NETHERITE_NETHERITE_BEACON.get().trigger(serverPlayerEntity, blockEntity);
                 }
                 if (blockEntity.beaconLevel == 4) {
                     List<ServerPlayerEntity> var14 = world.getNonSpectatingEntities(ServerPlayerEntity.class, new Box(i, j, k, i, j - 4, k).expand(10.0D, 5.0D, 10.0D));
                     for (ServerPlayerEntity serverPlayerEntity : var14)
-                        NetheriteCriteria.CONSTRUCT_NETHERITE_BEACON.trigger(serverPlayerEntity, blockEntity);
+                        NetheriteCriteria.CONSTRUCT_NETHERITE_BEACON.get().trigger(serverPlayerEntity, blockEntity);
                 }
             }
 
@@ -292,20 +293,20 @@ public class NetheriteBeaconBlockEntity extends BlockEntity implements NamedScre
         this.tertiary = getPotionEffectById(tag.getInt("Tertiary"));
         this.netheriteLevel = tag.getInt("NetheriteLevel");
         if (tag.contains("CustomName", 8))
-            this.customName = Text.Serializer.fromJson(tag.getString("CustomName"));
+            this.customName = Text.Serialization.fromJson(tag.getString("CustomName"));
         this.lock = ContainerLock.fromNbt(tag);
     }
 
     @Override
     public void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
-        tag.putInt("Primary", StatusEffect.getRawId(this.primary));
-        tag.putInt("Secondary", StatusEffect.getRawId(this.secondary));
-        tag.putInt("Tertiary", StatusEffect.getRawId(this.tertiary));
+        tag.putInt("Primary", Registries.STATUS_EFFECT.getRawId(this.primary));
+        tag.putInt("Secondary", Registries.STATUS_EFFECT.getRawId(this.secondary));
+        tag.putInt("Tertiary", Registries.STATUS_EFFECT.getRawId(this.tertiary));
         tag.putInt("Levels", this.beaconLevel);
         tag.putInt("NetheriteLevel", this.netheriteLevel);
         if (this.customName != null)
-            tag.putString("CustomName", Text.Serializer.toJson(this.customName));
+            tag.putString("CustomName", Text.Serialization.toJsonTree(this.customName).toString());
         this.lock.writeNbt(tag);
     }
 

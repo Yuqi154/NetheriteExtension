@@ -78,7 +78,7 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
 
     public void deserializeInventory(NbtCompound tag) {
         this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        if (!this.deserializeLootTable(tag) && tag.contains("Items", 9))
+        if (!this.readLootTable(tag) && tag.contains("Items", 9))
             Inventories.readNbt(tag, this.inventory);
     }
 
@@ -122,11 +122,6 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
     @Override
     protected Text getContainerName() {
         return Text.translatable("container.netheriteShulkerBox");
-    }
-
-    @Override
-    protected DefaultedList<ItemStack> getInvStackList() {
-        return this.inventory;
     }
 
     @Override
@@ -186,15 +181,15 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
                 for (Entity entity : list)
                     if (entity.getPistonBehavior() != PistonBehavior.IGNORE)
                         entity.move(MovementType.SHULKER_BOX, new Vec3d(
-                                (box.getXLength() + 0.01) * (double) direction.getOffsetX(),
-                                (box.getYLength() + 0.01) * (double) direction.getOffsetY(),
-                                (box.getZLength() + 0.01) * (double) direction.getOffsetZ()
+                                (box.getLengthX() + 0.01) * (double) direction.getOffsetX(),
+                                (box.getLengthY() + 0.01) * (double) direction.getOffsetY(),
+                                (box.getLengthZ() + 0.01) * (double) direction.getOffsetZ()
                         ));
         }
     }
 
     public NbtCompound serializeInventory(NbtCompound tag) {
-        if (!this.serializeLootTable(tag))
+        if (!this.writeLootTable(tag))
             Inventories.readNbt(tag, this.inventory);
         return tag;
     }
@@ -202,6 +197,11 @@ public class NetheriteShulkerBoxBlockEntity extends LootableContainerBlockEntity
     @Override
     public void setStack(int slot, ItemStack stack) {
         super.setStack(slot, stack);
+    }
+
+    @Override
+    protected DefaultedList<ItemStack> method_11282() {
+        return this.inventory;
     }
 
     @Override

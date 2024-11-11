@@ -7,7 +7,7 @@
     "BlockItemMixin",
     "CrossbowItemMixin",
     "ItemPredicateMixin",
-    "PlayerEntityMixin",
+    "ServerPlayerEntityMixin",
     "ServerPlayNetworkHandlerMixin",
     "ShulkerBoxBlockEntityMixin",
     "TridentEntityMixin"
@@ -15,7 +15,6 @@
   "client": [
     "BackgroundRendererMixin",
     "BuiltinModelItemRendererMixin",
-    "ClientPlayNetworkHandlerAccessor",
     "ClientPlayNetworkHandlerMixin",
     "ItemRendererMixin",
     "LivingEntityRendererMixin",

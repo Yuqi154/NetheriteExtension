@@ -19,6 +19,6 @@ public abstract class ClientPlayNetworkHandlerMixin {
     @Inject(method = "onEntitySpawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;onSpawnPacket(Lnet/minecraft/network/packet/s2c/play/EntitySpawnS2CPacket;)V"))
     public void onEntitySpawnMixin(EntitySpawnS2CPacket packet, CallbackInfo ci, @Local Entity entity) {
         if (entity.getType() == EntityType.TRIDENT)
-            ((TridentEntity) entity).tridentStack = new ItemStack(Registries.ITEM.get(NetheriteExtensionClient.TRIDENT_QUEUE.remove()));
+            ((TridentEntity) entity).stack = new ItemStack(Registries.ITEM.get(NetheriteExtensionClient.TRIDENT_QUEUE.remove()));
     }
 }

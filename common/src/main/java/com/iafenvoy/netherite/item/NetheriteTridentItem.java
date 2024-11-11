@@ -48,7 +48,7 @@ public class NetheriteTridentItem extends TridentItem {
                             if (!playerEntity.getAbilities().creativeMode)
                                 playerEntity.getInventory().removeOne(stack);
                         } else
-                            NetheriteCriteria.RIPTIDE_NETHERITE_TRIDENT.trigger((ServerPlayerEntity) playerEntity);
+                            NetheriteCriteria.RIPTIDE_NETHERITE_TRIDENT.get().trigger((ServerPlayerEntity) playerEntity);
                     }
                     playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
                     if (riptideLevel > 0) {

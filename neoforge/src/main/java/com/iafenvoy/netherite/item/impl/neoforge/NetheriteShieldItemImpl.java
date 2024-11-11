@@ -1,4 +1,4 @@
-package com.iafenvoy.netherite.item.impl.forge;
+package com.iafenvoy.netherite.item.impl.neoforge;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ShieldItem;

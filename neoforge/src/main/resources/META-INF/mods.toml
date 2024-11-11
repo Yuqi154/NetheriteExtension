@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[47,)"
+loaderVersion = "[2,)"
 #issueTrackerURL = ""
 license = "MIT"
 
@@ -15,22 +15,25 @@ Add more netherite items into game.
 logoFile = "logo.jpg"
 
 [[dependencies.netherite_ext]]
-modId = "forge"
-mandatory = true
-versionRange = "[47,)"
+modId = "neoforge"
+type = "required"
+versionRange = "[0,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.netherite_ext]]
 modId = "minecraft"
-mandatory = true
-versionRange = "[1.20.1,1.20.5)"
+type = "required"
+versionRange = "[1.20.4,1.21)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.netherite_ext]]
 modId = "architectury"
-mandatory = true
+type = "required"
 versionRange = "[0,)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[mixins]]
+config="netherite_ext.mixins.json"

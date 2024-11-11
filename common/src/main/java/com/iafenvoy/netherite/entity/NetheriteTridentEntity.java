@@ -24,12 +24,12 @@ import net.minecraft.world.World;
 public class NetheriteTridentEntity extends TridentEntity {
     public NetheriteTridentEntity(EntityType<? extends TridentEntity> entityType, World world) {
         super(entityType, world);
-        this.tridentStack = new ItemStack(NetheriteItems.NETHERITE_TRIDENT.get());
+        this.stack = new ItemStack(NetheriteItems.NETHERITE_TRIDENT.get());
     }
 
     public NetheriteTridentEntity(World world, LivingEntity owner, ItemStack stack) {
         super(world, owner, stack);
-        this.tridentStack = stack;
+        this.stack = stack;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class NetheriteTridentEntity extends TridentEntity {
         Entity entity = entityHitResult.getEntity();
         float f = 8.0F;
         if (entity instanceof LivingEntity livingEntity)
-            f += EnchantmentHelper.getAttackDamage(this.tridentStack, livingEntity.getGroup());
+            f += EnchantmentHelper.getAttackDamage(this.stack, livingEntity.getGroup());
         f = (float) (f * NetheriteExtensionConfig.INSTANCE.damage.trident_damage_multiplier + NetheriteExtensionConfig.INSTANCE.damage.trident_damage_addition);
 
         Entity entity2 = this.getOwner();
@@ -57,7 +57,7 @@ public class NetheriteTridentEntity extends TridentEntity {
 
         this.setVelocity(this.getVelocity().multiply(-0.01D, -0.1D, -0.01D));
         float g = 1.0F;
-        if (this.getWorld() instanceof ServerWorld && this.getWorld().isThundering() && EnchantmentHelper.hasChanneling(this.tridentStack)) {
+        if (this.getWorld() instanceof ServerWorld && this.getWorld().isThundering() && EnchantmentHelper.hasChanneling(this.stack)) {
             BlockPos blockPos = entity.getBlockPos();
             if (this.getWorld().isSkyVisible(blockPos)) {
                 LightningEntity lightningEntity = EntityType.LIGHTNING_BOLT.create(this.getWorld());

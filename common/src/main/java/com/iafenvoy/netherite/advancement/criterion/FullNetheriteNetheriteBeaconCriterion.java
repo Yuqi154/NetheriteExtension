@@ -1,56 +1,53 @@
 package com.iafenvoy.netherite.advancement.criterion;
 
-import com.google.gson.JsonObject;
-import com.iafenvoy.netherite.NetheriteExtension;
 import com.iafenvoy.netherite.block.entity.NetheriteBeaconBlockEntity;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancement.criterion.AbstractCriterion;
-import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.predicate.NumberRange;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
 import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+
+import java.util.Optional;
 
 public class FullNetheriteNetheriteBeaconCriterion extends AbstractCriterion<FullNetheriteNetheriteBeaconCriterion.Conditions> {
-    public static final Identifier id = new Identifier(NetheriteExtension.MOD_ID, "full_netherite_netherite_beacon");
-
-    @Override
-    public Identifier getId() {
-        return id;
-    }
-
-    @Override
-    public Conditions conditionsFromJson(JsonObject jsonObject, LootContextPredicate extended, AdvancementEntityPredicateDeserializer advancementEntityPredicateDeserializer) {
-        NumberRange.IntRange intRange = NumberRange.IntRange.fromJson(jsonObject.get("netherite_level"));
-        return new Conditions(extended, intRange);
-    }
 
     public void trigger(ServerPlayerEntity player, NetheriteBeaconBlockEntity beacon) {
         this.trigger(player, (conditions) -> conditions.matches(beacon));
     }
 
-    public static class Conditions extends AbstractCriterionConditions {
+    @Override
+    public Codec<Conditions> getConditionsCodec() {
+        return RecordCodecBuilder.create(i -> i.group(
+                LootContextPredicate.CODEC.optionalFieldOf("player", null).forGetter(Conditions::getPlayer),
+                NumberRange.IntRange.CODEC.fieldOf("netherite_level").forGetter(Conditions::getNetheriteLevel)
+        ).apply(i, Conditions::new));
+    }
+
+    public static class Conditions implements AbstractCriterion.Conditions {
+        private final LootContextPredicate player;
         private final NumberRange.IntRange netheriteLevel;
 
         public Conditions(LootContextPredicate player, NumberRange.IntRange netheriteLevel) {
-            super(id, player);
+            this.player = player;
             this.netheriteLevel = netheriteLevel;
-        }
-
-        public static Conditions level(NumberRange.IntRange netheriteLevel) {
-            return new Conditions(LootContextPredicate.EMPTY, netheriteLevel);
         }
 
         public boolean matches(NetheriteBeaconBlockEntity beacon) {
             return this.netheriteLevel.test(beacon.getNetheriteLevel());
         }
 
+        public LootContextPredicate getPlayer() {
+            return player;
+        }
+
+        public NumberRange.IntRange getNetheriteLevel() {
+            return netheriteLevel;
+        }
+
         @Override
-        public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
-            JsonObject jsonObject = super.toJson(predicateSerializer);
-            jsonObject.add("netherite_level", this.netheriteLevel.toJson());
-            return jsonObject;
+        public Optional<LootContextPredicate> player() {
+            return Optional.ofNullable(this.player);
         }
     }
 }
