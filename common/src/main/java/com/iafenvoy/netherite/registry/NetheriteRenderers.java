@@ -85,7 +85,7 @@ public final class NetheriteRenderers {
     }
 
     public static void registerModel(Consumer<ModelIdentifier> consumer) {
-        consumer.accept(new ModelIdentifier(Identifier.of(NetheriteExtension.MOD_ID, "netherite_trident"), "inventory"));
-        consumer.accept(new ModelIdentifier(Identifier.of(NetheriteExtension.MOD_ID, "netherite_trident_in_hand"), "inventory"));
+        consumer.accept(new ModelIdentifier(Identifier.of(NetheriteExtension.MOD_ID, "netherite_trident"), "standalone"));
+        consumer.accept(new ModelIdentifier(Identifier.of(NetheriteExtension.MOD_ID, "netherite_trident_in_hand"), "standalone"));
     }
 }

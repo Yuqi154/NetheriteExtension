@@ -22,7 +22,7 @@ public class NetheriteExtensionClient {
         NetheriteRenderers.registerModelPredicates();
         NetheriteRenderers.registerBlockEntityRenderers();
         NetheriteRenderers.registerRenderTypes();
-        NetheriteScreenHandlers.initializeClient();
         NetworkManager.registerReceiver(NetworkManager.Side.S2C, TridentSpawnPacket.ID, TridentSpawnPacket.CODEC, (payload, ctx) -> TRIDENT_QUEUE.add(payload.id()));
     }
+
 }
